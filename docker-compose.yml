@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:13.7
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    networks:
+      - my-network
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    image: my-backend-image
+    container_name: backend
+    environment:
+      DATABASE_URL: postgres://myuser:mypassword@postgres-db:5432/mydatabase
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres-db
+    networks:
+      - my-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    ports:
+      - "8080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - postgres-db
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  db_data:
+  pgadmin_data:

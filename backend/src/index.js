@@ -1,7 +1,22 @@
 import express from 'express';
-import {PORT} from './config/config.js'
+import morgan from 'morgan';
+import alumnoRoutes from '/routes/alumno.routes.js';
 
-const app = express();
+async function inicializarServidor(){
+try {
+    const app = express();
+    
+    app.use(morgan('dev'));
+    app.use(express.json());
+        app.use('/alumnos', alumnoRoutes);
+    
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, () => {
+          console.log(`Servidor escuchando en el puerto ${PORT}`);
+      });
 
-app.listen(PORT);
-console.log("Server en el puerto", PORT);
+    } catch (error) {
+         console.log('Error en server.js -> setupAPI(): ', err);
+    }
+}
+inicializarServidores ();

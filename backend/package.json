@@ -2,8 +2,8 @@
   "name": "insucosmart",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type": "module",
+  "main": "index.js", 
+  "type": "module", 
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js"
