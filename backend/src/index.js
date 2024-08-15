@@ -1,7 +1,21 @@
-import express from 'express';
-import {PORT} from './config/config.js'
+import { PORT, HOST } from './config/configEnv.js';
+import express, { urlencoded, json } from 'express';
+import morgan from 'morgan';
+import indexRoutes from './routes/index.routes.js';
 
-const app = express();
+async function setupServer() {
+    try {
+        const app = express();
 
-app.listen(PORT);
-console.log("Server en el puerto", PORT);
+        app.use(morgan('dev'));
+        app.use(indexRoutes);
+
+        app.listen(PORT, () => {
+            console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
+        });
+    } catch (error) {
+        console.log('Error en index.js -> setupServer(): ', error);
+    }
+}
+
+setupServer();
