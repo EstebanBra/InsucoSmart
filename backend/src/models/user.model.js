@@ -25,7 +25,7 @@ const Usuario = sequelize.define('Usuario', {
         allowNull: true
     }
 }, {
-    tableName: 'PERSONA',
+    tableName: "PERSONA",
     timestamps: false // Evita tener: createdAt y updatedAt
 });
 
