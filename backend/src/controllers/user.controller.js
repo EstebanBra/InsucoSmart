@@ -1,19 +1,19 @@
 import bcrypt from 'bcryptjs';
 import Usuario from '../models/user.model.js';
 
-export const crearUsuario = async (req, res) => {
+export async function crearUsuario(req, res) {
     try {
         const { rut, rol, nombre, curso, contrasena } = req.body;
 
         // Maneja posibles errores de campos requeridos
         if (!rut) {
-            return res.status(400).json({ message: 'El parámetro rut es requerido.' });
+            return res.status(400).json({ message: 'El parámetro "rut" es requerido.' });
         }
         if (!rol) {
-            return res.status(400).json({ message: 'El parámetro rol es requerido.' });
+            return res.status(400).json({ message: 'El parámetro "rol" es requerido.' });
         }
         if (!nombre) {
-            return res.status(400).json({ message: 'El parámetro nombre es requerido.' });
+            return res.status(400).json({ message: 'El parámetro "nombre" es requerido.' });
         }
 
         // Verifica si el rut existe

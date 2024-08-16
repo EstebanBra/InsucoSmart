@@ -3,7 +3,6 @@ import express, { urlencoded, json } from 'express';
 import morgan from 'morgan';
 import { connectDB } from './config/configDB.js';
 import indexRoutes from './routes/index.routes.js';
-import { connectDB } from './config/configDB.js';
 
 async function setupServer() {
     try {
