@@ -6,18 +6,18 @@ export async function registrarAtraso(req, res) {
 
   try {
     // Buscamos la persona por su RUT
-    const persona = await Persona.findOne({ where: { run: rut } });
+    const persona = await Persona.findOne({ where: { rut: rut } });
 
     if (!persona) {
       return res.status(404).json({ message: 'Alumno no encontrado' });
     }
 
     // Contamos el total de atrasos actuales del alumno
-    const totalAtrasos = await Atraso.count({ where: { rutPersona: persona.run } });
+    const totalAtrasos = await Atraso.count({ where: { rutPersona: persona.rut } });
 
     // Registramos el nuevo atraso con el total actualizado
     const atraso = await Atraso.create({
-      rutPersona: persona.run,
+      rutPersona: persona.rut,
       descripcion: 'Atraso registrado',
       totalAtrasos: totalAtrasos + 1, // Actualizamos el total acumulado
       fechaHoraIngreso: new Date()
