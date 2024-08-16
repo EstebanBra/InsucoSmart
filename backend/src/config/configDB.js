@@ -1,24 +1,21 @@
 import { Sequelize } from 'sequelize';
-import { USERNAME, PASSWORD, HOST, PORT, DATABASE} from './configEnv.js'
+import { USERNAME, PASSWORD, HOST, PORT, DATABASE } from './configEnv.js';
 
 const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
     host: HOST,
     port: PORT,
-    dialect: 'postgres', // Es esencial para que Sequelize sepa cómo comunicarse con el tipo de base de datos que estás utilizando. En este caso postgres.
-    logging: true, // Agrega esta línea
+    dialect: 'postgres', // Especifica el tipo de base de datos que se está utilizando
+    logging: false // Oculta las consultas mostradas en la consola de la base de datos
 });
 
 export async function connectDB() {
     try {
         await sequelize.authenticate(); // Autentica la conexión a la base de datos
-        console.log('Conexión a la base de datos establecida con éxito.');
-        
-        await sequelize.sync(); // Sincronizar los modelos con la base de datos
-        console.log('Modelos sincronizados con la base de datos.');
+        await sequelize.sync(); // Sincroniza los modelos con la base de datos
+        console.log('Base de datos conectada exitosamente!');
     } catch (error) {
         console.error('Error en configDB.js -> connectDB(): ', error);
     }
 }
 
 export default sequelize;
-
