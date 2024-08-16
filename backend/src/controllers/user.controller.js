@@ -43,3 +43,18 @@ export async function crearUsuario(req, res) {
         res.status(500).json({ message: error.message });
     }
 }
+export async function listarAcademicos(req, res) {
+    try {
+        const academicos = await Usuario.findAll({
+            where: { rol: ['Profesor', 'Inspector'] },
+            attributes: ['rol', 'rut', 'nombre', 'curso']
+        });
+        res.status(200).json({
+            message: 'Académicos encontrados:',
+            academicos: academicos
+        });
+    } catch (error) {
+        console.error('Error en user.controller.js -> listarAcademicos():', error);
+        res.status(500).json({ message: error.message });
+    }
+}
