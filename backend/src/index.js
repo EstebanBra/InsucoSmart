@@ -1,5 +1,6 @@
-import { HOST } from './config/configEnv.js';
+import { HOST, PASS_SECRET } from './config/configEnv.js';
 import express, { urlencoded, json } from 'express';
+import session from 'express-session';
 import morgan from 'morgan';
 import { connectDB } from './config/configDB.js';
 import indexRoutes from './routes/index.routes.js';
@@ -7,12 +8,19 @@ import indexRoutes from './routes/index.routes.js';
 async function setupServer() {
     try {
         const app = express();
-        
+
+        app.use(session({
+            name: 'miCookie',
+            secret: `${PASS_SECRET}`,
+            resave: false,
+            saveUninitialized: false,
+            cookie: { secure: false } // En producción establecer en true para que la cookie solo se envie a través de HTTPS
+        }));
+
         app.use(json());
         app.use(urlencoded({ extended: true }));
         app.use(morgan('dev'));
-         // Agrega el enrutador principal al servidor
-        app.use('/api',indexRoutes);
+        app.use('/api', indexRoutes);
 
         app.listen(3000, () => {
             console.log(`=> Servidor corriendo en http://${HOST}:3000`);

@@ -17,6 +17,12 @@ export async function iniciarSesion(req, res) {
 
         const contrasenaValida = await bcrypt.compare(contrasena, usuarioEncontrado.contrasena);
         if (contrasenaValida) {
+            req.session.usuario = {
+                rut: usuarioEncontrado.rut,
+                rol: usuarioEncontrado.rol,
+                nombre: usuarioEncontrado.nombre,
+                curso: usuarioEncontrado.curso,
+            };
             res.status(200).json({ message: 'Inicio de sesión exitoso' });
         } else {
             res.status(401).json({ message: 'Contraseña incorrecta' });
