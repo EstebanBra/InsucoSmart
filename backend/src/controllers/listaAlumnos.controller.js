@@ -28,3 +28,26 @@ export async function obtenerAlumnosConAtrasos(req, res) {
     res.status(500).json({ message: 'Error alumnos' });
   }
 }
+
+
+export async function obtenerAlumnosConAlertaAtraso(req, res) {
+  try {
+    // Obtiene todos los registros de Persona con el rol de 'alumno'
+    const alumnos = await Usuario.findAll({
+      where: { rol: 'Alumno' }, // Filtra por el rol 'alumno'
+      attributes: ['nombre', 'rut'], // Incluye estos atributos en el resultado
+    });
+    
+    const atrasados = await Atraso.findAll({
+      where: {
+        rut: '12345678-9', // Reemplaza por el RUT que deseas buscar
+        atrasos: {
+          [Op.gte]: 3 // Tres o más atrasos
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error al encontrar alumnos:', error);
+    res.status(500).json({ message: 'Error alumnos' });
+  }
+}

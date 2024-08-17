@@ -28,6 +28,7 @@ export async function registrarAtraso(req, res) {
         nombre: persona.nombre,
         rut,
         totalAtrasos: 1,
+        curso: persona.curso,
         fechaHoraIngreso: nuevoAtraso.fechaHoraIngreso
       });
     } else {
@@ -38,7 +39,8 @@ export async function registrarAtraso(req, res) {
         nombre: persona.nombre,
         rut,
         totalAtrasos: atraso.totalatrasos,
-        fechaHoraIngreso: atraso.fechaHoraIngreso
+        curso: persona.curso,
+        fechaHoraIngreso: new Date().toLocaleString("es-CL", { timeZone: "America/Santiago" })
       });
     }
   } catch (error) {
