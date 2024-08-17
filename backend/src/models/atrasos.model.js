@@ -1,10 +1,10 @@
 // models/atraso.model.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/configDB.js';
-import Persona from '../models/persona.model.js';
+import Usuario from '../models/user.model.js';
 
 const Atraso = sequelize.define('Atraso', {
-    idAtraso: {
+    idatraso: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
@@ -12,13 +12,13 @@ const Atraso = sequelize.define('Atraso', {
     descripcion: {
       type: DataTypes.STRING
     },
-    totalAtrasos: {
+    totalatrasos: {
       type: DataTypes.INTEGER
     },
-    rutPersona: {
+    rutpersona: {
       type: DataTypes.STRING,
       references: {
-        model: Persona,
+        model: Usuario,
         key: 'rut'
       }
     }
@@ -27,7 +27,7 @@ const Atraso = sequelize.define('Atraso', {
     timestamps: false
   });
   
-  Atraso.belongsTo(Persona, { foreignKey: 'rutPersona' });
-  Persona.hasMany(Atraso, { foreignKey: 'rutPersona' });
+  Atraso.belongsTo(Usuario, { foreignKey: 'rutpersona' });
+  Usuario.hasMany(Atraso, { foreignKey: 'rutpersona' });
   
   export default Atraso ;
