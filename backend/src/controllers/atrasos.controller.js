@@ -13,13 +13,13 @@ export async function registrarAtraso(req, res) {
     }
 
     // Contamos el total de atrasos actuales del alumno
-    const totalAtrasos = await Atraso.count({ where: { rutPersona: persona.rut } });
+    const totalAtrasos = await Atraso.count({ where: { rutpersona: persona.rut } });
 
     // Registramos el nuevo atraso con el total actualizado
     const atraso = await Atraso.create({
-      rutPersona: persona.rut,
+      rutpersona: persona.rut,
       descripcion: 'Atraso registrado',
-      totalAtrasos: totalAtrasos + 1, // Actualizamos el total acumulado
+      totalatrasos: totalAtrasos + 1, // Actualizamos el total acumulado
       fechaHoraIngreso: new Date()
     });
 

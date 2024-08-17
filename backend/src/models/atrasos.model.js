@@ -4,7 +4,7 @@ import sequelize from '../config/configDB.js';
 import Persona from '../models/persona.model.js';
 
 const Atraso = sequelize.define('Atraso', {
-    idAtraso: {
+    idatraso: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
@@ -12,10 +12,10 @@ const Atraso = sequelize.define('Atraso', {
     descripcion: {
       type: DataTypes.STRING
     },
-    totalAtrasos: {
+    totalatrasos: {
       type: DataTypes.INTEGER
     },
-    rutPersona: {
+    rutpersona: {
       type: DataTypes.STRING,
       references: {
         model: Persona,
@@ -27,7 +27,7 @@ const Atraso = sequelize.define('Atraso', {
     timestamps: false
   });
   
-  Atraso.belongsTo(Persona, { foreignKey: 'rutPersona' });
-  Persona.hasMany(Atraso, { foreignKey: 'rutPersona' });
+  Atraso.belongsTo(Persona, { foreignKey: 'rutpersona' });
+  Persona.hasMany(Atraso, { foreignKey: 'rutpersona' });
   
   export default Atraso ;

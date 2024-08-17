@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import { USERNAME, PASSWORD, HOST, PORT, DATABASE } from './configEnv.js';
 
-const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
+const sequelize = new Sequelize(DATABASE, 'postgres', PASSWORD, {
     host: HOST,
     port: PORT,
     dialect: 'postgres', // Especifica el tipo de base de datos que se está utilizando
