@@ -43,6 +43,21 @@ export async function crearUsuario(req, res) {
         res.status(500).json({ message: error.message });
     }
 }
+export async function eliminarUsuario(req, res) {
+    try {
+        const { rut } = req.params;
+        const usuarioEliminado = await Usuario.destroy({ where: { rut } });
+
+        if (usuarioEliminado) {
+            res.status(200).json({ message: `Usuario con RUT: ${rut} eliminado correctamente` });
+        } else {
+            res.status(404).json({ message: `Usuario con RUT: ${rut} no encontrado` });
+        }
+    } catch (error) {
+        console.error('Error en user.controller.js -> eliminarUsuario():', error);
+        res.status(500).json({ message: error.message });
+    }
+}
 export async function listarAcademicos(req, res) {
     try {
         const academicos = await Usuario.findAll({
