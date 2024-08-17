@@ -1,7 +1,7 @@
 // models/atraso.model.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/configDB.js';
-import Persona from '../models/persona.model.js';
+import Usuario from '../models/user.model.js';
 
 const Atraso = sequelize.define('Atraso', {
     idatraso: {
@@ -18,7 +18,7 @@ const Atraso = sequelize.define('Atraso', {
     rutpersona: {
       type: DataTypes.STRING,
       references: {
-        model: Persona,
+        model: Usuario,
         key: 'rut'
       }
     }
@@ -27,7 +27,7 @@ const Atraso = sequelize.define('Atraso', {
     timestamps: false
   });
   
-  Atraso.belongsTo(Persona, { foreignKey: 'rutpersona' });
-  Persona.hasMany(Atraso, { foreignKey: 'rutpersona' });
+  Atraso.belongsTo(Usuario, { foreignKey: 'rutpersona' });
+  Usuario.hasMany(Atraso, { foreignKey: 'rutpersona' });
   
   export default Atraso ;
