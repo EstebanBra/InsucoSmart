@@ -8,7 +8,7 @@ const envFilePath = path.resolve(_dirname, '.env');
 
 dotenv.config({ path: envFilePath });
 
-export const USERNAME = process.env.USERNAME;
+export const USERDB = process.env.USERNAMEDB;
 export const PASSWORD = process.env.PASSWORD;
 export const HOST = process.env.HOST;
 export const PORT = process.env.PORT;
