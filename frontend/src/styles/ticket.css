@@ -1,0 +1,27 @@
+.ticket {
+    width: 300px;
+    padding: 20px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 2px dashed #000000;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.ticket h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.ticket p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.ticket img {
+    width: 80px;
+    height: auto;
+    margin: 15px 10px 0px; /* 10px en superior, 5px en derecho e izquierdo, 15px en inferior */
+}
