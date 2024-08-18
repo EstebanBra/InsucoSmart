@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { crearUsuario } from '../controllers/user.controller.js';
+import userRoutes from './user.routes.js';
+import authRoutes from './auth.routes.js';
 
 // Enrutador para atrasos
 import atrasosRoutes from './atrasos.routes.js';
@@ -14,6 +15,7 @@ router.use('/atraso', atrasosRoutes);
 router.use('/atraso', listaAlumnosRoutes);
 
 router.get('/');
-router.post('/crearUsuario', crearUsuario);
+router.use('/auth', authRoutes);
+router.use('/usuario', userRoutes);
 
 export default router;

@@ -21,7 +21,7 @@ const Usuario = sequelize.define('Usuario', {
         allowNull: true
     },
     contrasena: {
-    type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: true
     }
 }, {

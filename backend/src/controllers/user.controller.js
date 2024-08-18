@@ -1,19 +1,19 @@
 import bcrypt from 'bcryptjs';
 import Usuario from '../models/user.model.js';
 
-export const crearUsuario = async (req, res) => {
+export async function crearUsuario(req, res) {
     try {
         const { rut, rol, nombre, curso, contrasena } = req.body;
 
         // Maneja posibles errores de campos requeridos
         if (!rut) {
-            return res.status(400).json({ message: 'El parámetro rut es requerido.' });
+            return res.status(400).json({ message: 'El parámetro "rut" es requerido.' });
         }
         if (!rol) {
-            return res.status(400).json({ message: 'El parámetro rol es requerido.' });
+            return res.status(400).json({ message: 'El parámetro "rol" es requerido.' });
         }
         if (!nombre) {
-            return res.status(400).json({ message: 'El parámetro nombre es requerido.' });
+            return res.status(400).json({ message: 'El parámetro "nombre" es requerido.' });
         }
 
         // Verifica si el rut existe
@@ -40,6 +40,36 @@ export const crearUsuario = async (req, res) => {
         });
     } catch (error) {
         console.error('Error en user.controller.js -> crearUsuario():', error);
+        res.status(500).json({ message: error.message });
+    }
+}
+export async function eliminarUsuario(req, res) {
+    try {
+        const { rut } = req.params;
+        const usuarioEliminado = await Usuario.destroy({ where: { rut } });
+
+        if (usuarioEliminado) {
+            res.status(200).json({ message: `Usuario con RUT: ${rut} eliminado correctamente` });
+        } else {
+            res.status(404).json({ message: `Usuario con RUT: ${rut} no encontrado` });
+        }
+    } catch (error) {
+        console.error('Error en user.controller.js -> eliminarUsuario():', error);
+        res.status(500).json({ message: error.message });
+    }
+}
+export async function listarAcademicos(req, res) {
+    try {
+        const academicos = await Usuario.findAll({
+            where: { rol: ['Profesor', 'Inspector'] },
+            attributes: ['rol', 'rut', 'nombre', 'curso']
+        });
+        res.status(200).json({
+            message: 'Académicos encontrados:',
+            academicos: academicos
+        });
+    } catch (error) {
+        console.error('Error en user.controller.js -> listarAcademicos():', error);
         res.status(500).json({ message: error.message });
     }
 }
