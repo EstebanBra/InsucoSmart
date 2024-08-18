@@ -8,6 +8,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [error, setError] = useState(null);
     const [showNotification, setShowNotification] = useState(false);
+    const [formData, setFormData] = useState({ rut: '', contrasena: '' });
 
     async function loginSubmit(data) {
         try {
@@ -22,26 +23,41 @@ export default function Login() {
         }
     }
 
+    function handleChange(event) {
+        const { name, value } = event.target;
+        setFormData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    }
+
+    const isFormValid = formData.rut.trim() !== '' && formData.contrasena.trim() !== '';
+
     return (
         <main>
             {error && <p>{error}</p>}
             {showNotification && <SesionExitosa />}
             <Form
-                title='Iniciar sesión'
+                title='Bienvenido'
                 fields={[
                     {
                         label: "RUN",
                         name: "rut",
                         type: "text",
+                        value: formData.rut,
+                        onChange: handleChange
                     },
                     {
                         label: "Contraseña",
                         name: "contrasena",
                         type: "password",
+                        value: formData.contrasena,
+                        onChange: handleChange
                     }
                 ]}
                 buttonText="Iniciar sesión"
                 onSubmit={loginSubmit}
+                buttonDisabled={!isFormValid}
             />
         </main>
     );

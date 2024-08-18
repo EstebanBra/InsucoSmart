@@ -1,7 +1,7 @@
 import '../styles/form.css';
 import logo from '../assets/logo.png';
 
-export default function Form({ title, fields, buttonText, onSubmit, footerContent, backgroundColor }) {
+export default function Form({ title, fields, buttonText, onSubmit, footerContent, backgroundColor, buttonDisabled }) {
     function handleSubmit(event) {
         event.preventDefault();
 
@@ -27,14 +27,15 @@ export default function Form({ title, fields, buttonText, onSubmit, footerConten
                             label={field.type || 'text'}
                             name={field.name}
                             placeholder={field.placeholder}
-                            type={field.type || text}
+                            type={field.type || 'text'}
                             value={field.value}
                             required={field.required}
                             disabled={field.disabled}
-                            />
+                            onChange={field.onChange}
+                        />
                     </div>
                 ))}
-                {buttonText && <button className='button-form' type='submit'>{buttonText}</button>}
+                {buttonText && <button className='button-form' type='submit' disabled={buttonDisabled}>{buttonText}</button>}
                 {footerContent && <div>{footerContent}</div>}
             </form>
         </div>
