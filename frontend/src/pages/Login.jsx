@@ -23,7 +23,7 @@ export default function Login() {
     }
 
     return (
-        <main className='container'>
+        <main>
             {error && <p>{error}</p>}
             {showNotification && <SesionExitosa />}
             <Form
