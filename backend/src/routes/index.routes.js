@@ -15,7 +15,7 @@ router.use('/atraso', atrasosRoutes);
 router.use('/atraso', listaAlumnosRoutes);
 
 router.get('/');
-router.use('/autenticacion', authRoutes);
+router.use('/auth', authRoutes);
 router.use('/usuario', userRoutes);
 
 export default router;

@@ -2,6 +2,7 @@ import { HOST, PASS_SECRET } from './config/configEnv.js';
 import express, { urlencoded, json } from 'express';
 import session from 'express-session';
 import morgan from 'morgan';
+import cors from 'cors';
 import { connectDB } from './config/configDB.js';
 import indexRoutes from './routes/index.routes.js';
 
@@ -16,7 +17,7 @@ async function setupServer() {
             saveUninitialized: false,
             cookie: { secure: false } // En producción establecer en true para que la cookie solo se envie a través de HTTPS
         }));
-
+        app.use(cors({ credentials: true, origin: true }));
         app.use(json());
         app.use(urlencoded({ extended: true }));
         app.use(morgan('dev'));

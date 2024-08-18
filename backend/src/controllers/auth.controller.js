@@ -5,9 +5,16 @@ export async function iniciarSesion(req, res) {
     try {
         const { rut, contrasena } = req.body;
 
+        if (!rut) {
+            return res.status(400).json({ message: 'El RUN es requerido' });
+        }
+        if (!contrasena) {
+            return res.status(400).json({ message: 'La contraseña es requerida' });
+        }
+
         const usuarioEncontrado = await Usuarios.findOne({ where: { rut: rut }});
         if (!usuarioEncontrado) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+            return res.status(401).json({ message: 'RUN o contraseña incorrectos' });
         }
 
         const rolesPermitidos = ['Administrador', 'Profesor'];
@@ -25,7 +32,7 @@ export async function iniciarSesion(req, res) {
             };
             res.status(200).json({ message: 'Inicio de sesión exitoso' });
         } else {
-            res.status(401).json({ message: 'Contraseña incorrecta' });
+            res.status(401).json({ message: 'RUN o contraseña incorrectos' });
         }
     } catch (error) {
         console.error('Error en auth.controller.js -> iniciarSesion():', error);
