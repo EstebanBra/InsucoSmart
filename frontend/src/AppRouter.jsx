@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
+import Login from './pages/Login.jsx';
 
-function AppRouter() {
+export default function AppRouter() {
   return (
     <Routes>
-      <Route />
+      <Route path='/' />
+      <Route path='/auth/login' element={<Login />} />
     </Routes>
   );
 }
-
-export default AppRouter;

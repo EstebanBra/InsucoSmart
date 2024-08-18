@@ -1,0 +1,70 @@
+.logo-insuco {
+    width: 300px; /* Set a fixed width for the logo */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space between the logo and the title */
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #fdfdfd;
+    box-shadow: 0 8px 20px rgba(171, 190, 209, 0.2);
+    padding: 20px;
+    width: 100%;
+}
+
+.container-inputs {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 16px;
+}
+
+.label-form {
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 8px;
+    color: #64748b;
+}
+
+.input-form {
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 16px;
+    color: #64748b;
+    height: 50px;
+    width: 100%;
+}
+.input-form:focus {
+    outline: none;
+    border: 1.5px solid #007bff;
+}
+
+.button-form {
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    max-width: 400px;
+    padding: 17px 0;
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-form:hover {
+    background-color: #0056b3; /* Darker background on hover */
+}
