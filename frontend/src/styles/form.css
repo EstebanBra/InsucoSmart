@@ -1,7 +1,7 @@
 .logo-insuco {
-    width: 300px; /* Set a fixed width for the logo */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 20px; /* Space between the logo and the title */
+    width: 300px;
+    height: auto;
+    margin-bottom: 20px;
 }
 
 .container {
@@ -66,5 +66,5 @@
 }
 
 .button-form:hover {
-    background-color: #0056b3; /* Darker background on hover */
+    background-color: #0056b3;
 }
