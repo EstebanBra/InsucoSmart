@@ -16,7 +16,7 @@ export default function Login() {
             setShowNotification(true);
             setTimeout(() => {
                 setShowNotification(false);
-                navigate('/');
+                navigate('/ProfesorPage');
             }, 2200);
         } catch (e) {
             setError(e.message);

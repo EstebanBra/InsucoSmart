@@ -1,0 +1,30 @@
+.profesor-page {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.styled-button {
+    background-color: #4CAF50; /* Color de fondo */
+    border: none; /* Sin borde */
+    color: white; /* Color del texto */
+    padding: 15px 32px; /* Relleno interno */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Mostrar como bloque en línea */
+    font-size: 16px; /* Tamaño del texto */
+    margin: 4px 2px; /* Márgenes */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+    border-radius: 12px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Transición suave para cambios de color */
+}
+
+.styled-button:hover {
+    background-color: #45a049; /* Cambia el color de fondo al pasar el mouse */
+}
