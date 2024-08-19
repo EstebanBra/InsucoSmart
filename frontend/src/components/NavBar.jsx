@@ -21,6 +21,9 @@ export default function NavBar() {
     }
 
     function goHome() {
+        navigate('/profesorPage');
+    }
+    function goHome1() {
         navigate('/');
     }
     function login() {
@@ -36,9 +39,11 @@ export default function NavBar() {
         <nav className="navbar">
             <h1 className="navbar-logo">{letra}</h1>
             <div className="dropdowns">
-                <div className="dropdown">
-                    <button className="navbar-button" onClick={goHome}>Inicio</button>
-                </div>
+                {rol === "" && (
+                    <div className="dropdown">
+                    <button className="navbar-button" onClick={goHome1}>Inicio</button>
+                    </div>
+                )}
                 {rol === "Administrador" && (
                     <div className="dropdown">
                         <button className='navbar-button'>
@@ -51,14 +56,19 @@ export default function NavBar() {
                         </div>
                     </div>
                 )}
-                {rol !== "" && (
-                    <div className="dropdown">
-                        <button className="navbar-button" onClick={logout}>Cerrar sesión</button>
-                    </div>
-                )}
                 {rol === "" && (
                     <div className="dropdown">
                         <button className="navbar-button" onClick={login}>Iniciar sesión</button>
+                    </div>
+                )}
+                {rol === "Profesor" && (
+                    <div className="dropdown">
+                    <button className="navbar-button" onClick={goHome}>Inicio</button>
+                    </div>
+                )}
+                {rol === "Profesor" && (
+                    <div className="dropdown">
+                        <button className="navbar-button" onClick={logout}>Cerrar sesión</button>
                     </div>
                 )}
             </div>

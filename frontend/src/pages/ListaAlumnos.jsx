@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ListaAlumnos from '../services/listaAlumnos.js';
 import '../styles/tabla.css'
+import NavBar from '../components/NavBar.jsx';
 
 function ListarAlumnos() {
   const [alumnos, setAlumnos] = useState([]);
@@ -21,6 +22,7 @@ function ListarAlumnos() {
 
   return (
     <div className="body-listaAlumnos">
+      <NavBar />
       <div className="title">
         <h1>Lista de Alumnos con atrasos</h1>
       </div>
