@@ -30,12 +30,33 @@ export async function iniciarSesion(req, res) {
                 nombre: usuarioEncontrado.nombre,
                 curso: usuarioEncontrado.curso,
             };
-            res.status(200).json({ message: 'Inicio de sesión exitoso' });
+            res.status(200).json({ message: 'Inicio de sesión exitoso', data: req.session.usuario });
         } else {
             res.status(401).json({ message: 'RUN o contraseña incorrectos' });
         }
     } catch (error) {
         console.error('Error en auth.controller.js -> iniciarSesion():', error);
         res.status(500).json({ message: error });
+    }
+}
+
+export async function cerrarSesion(req, res) {
+    try {
+        if (req.session.usuario) {
+            req.session.destroy((error) => {
+                if (error) {
+                    console.error('Error al cerrar sesión:', error);
+                    return res.status(500).json({ message: "Error al cerrar la sesión" });
+                } else {
+                    res.clearCookie('miCookie');
+                    return res.status(200).json({ message: "Sesión cerrada exitosamente" });
+                }
+            });
+        } else {
+            return res.status(200).json({ message: 'No hay ninguna sesión activa para cerrar' });
+        }
+    } catch (e) {
+        console.error('Error en auth.controller.js -> cerrarSesion():', e);
+        res.status(500).json({ message: e });
     }
 }

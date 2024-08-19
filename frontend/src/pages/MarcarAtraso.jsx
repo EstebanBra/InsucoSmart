@@ -3,6 +3,8 @@ import Ticket from '../components/Ticket';
 import logoLiceo from '../assets/logo-Blanco-Negro.png';
 import { obtenerFechaYHoraActual } from '../helpers/FechaHoraActual.jsx';
 import marcarAtraso from '../services/marcarAtraso.service.js'
+import NavBar from '../components/NavBar.jsx';
+import '../styles/atraso.css';
 
 function MarcarAtraso() {
     const [rut, setRut] = useState('');
@@ -35,29 +37,35 @@ function MarcarAtraso() {
     };
 
     return (
-        <div>
-            <h1>{fechaYHora}</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="rut">Ingrese el RUT:</label>
-                <input 
-                    type="text" 
-                    id="rut" 
-                    value={rut} 
-                    onChange={(e) => setRut(e.target.value)} 
-                    required 
-                />
-                <button type="submit">Registrar Atraso</button>
-            </form>
+        <div className="atraso-container">
+            <NavBar />
+            <main>
+                <h1>{fechaYHora}</h1>
+                <form className="form-atraso" onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="rut">Ingrese el RUT:</label>
+                        <input 
+                            className="rut-input"
+                            type="text" 
+                            id="rut" 
+                            value={rut} 
+                            onChange={(e) => setRut(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <button type="submit">Registrar Atraso</button>
+                </form>
 
-            {ticketVisible && (
-                <Ticket 
-                    nombre={ticketData.nombre}
-                    curso={ticketData.curso}
-                    totalAtrasos={ticketData.totalAtrasos}
-                    fechaHoraIngreso={ticketData.fechaHoraIngreso}
-                    logo={logoLiceo}
-                />
-            )}
+                {ticketVisible && (
+                    <Ticket 
+                        nombre={ticketData.nombre}
+                        curso={ticketData.curso}
+                        totalAtrasos={ticketData.totalAtrasos}
+                        fechaHoraIngreso={ticketData.fechaHoraIngreso}
+                        logo={logoLiceo}
+                    />
+                )}
+            </main>
         </div>
     );
 }
