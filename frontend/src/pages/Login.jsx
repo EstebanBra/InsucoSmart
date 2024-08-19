@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import loginAPI from '../services/auth.service';
+import { loginAPI } from '../services/auth.service';
 import Form from '../components/Form.jsx';
 import { SesionExitosa } from '../helpers/Notifications.jsx';
 

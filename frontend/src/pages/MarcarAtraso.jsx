@@ -3,6 +3,7 @@ import Ticket from '../components/Ticket';
 import logoLiceo from '../assets/logo-Blanco-Negro.png';
 import { obtenerFechaYHoraActual } from '../helpers/FechaHoraActual.jsx';
 import marcarAtraso from '../services/marcarAtraso.service.js'
+import NavBar from '../components/NavBar.jsx';
 import '../styles/atraso.css';
 
 function MarcarAtraso() {
@@ -37,6 +38,7 @@ function MarcarAtraso() {
 
     return (
         <div className="atraso-container">
+            <NavBar />
             <main>
                 <h1>{fechaYHora}</h1>
                 <form className="form-atraso" onSubmit={handleSubmit}>
