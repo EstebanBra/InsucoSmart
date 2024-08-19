@@ -29,7 +29,7 @@ export async function registrarAtraso(req, res) {
         rut,
         totalAtrasos: 1,
         curso: persona.curso,
-        fechaHoraIngreso: nuevoAtraso.fechaHoraIngreso
+        fechaHoraIngreso: new Date()
       });
     } else {
       // Si existe un atraso, actualizamos el total de atrasos

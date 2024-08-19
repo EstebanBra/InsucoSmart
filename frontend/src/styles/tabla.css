@@ -1,0 +1,59 @@
+
+/* Estilos generales */
+
+.body-listaAlumnos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Estilos del contenedor */
+.container-listaAlumnos {
+    width: 80%;
+    border: 0px solid #626161;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos de la tabla */
+.container-listaAlumnos table {
+    width: 100%;
+    border-spacing: 10px 20px;
+}
+
+
+.container-listaAlumnos th,
+.container-listaAlumnos td {
+    padding: 18px;
+    text-align: left;
+}
+
+.container-listaAlumnos th {
+    color: #333;
+    padding-bottom: 15px; /* Espacio extra debajo del texto */
+}
+.container-listaAlumnos tbody tr {
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+
+
+input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}

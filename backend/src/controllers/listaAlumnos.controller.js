@@ -7,7 +7,7 @@ export async function obtenerAlumnosConAtrasos(req, res) {
     // Obtiene todos los registros de Persona con el rol de 'alumno'
     const alumnos = await Usuario.findAll({
       where: { rol: 'Alumno' }, // Filtra por el rol 'alumno'
-      attributes: ['nombre', 'rut'], // Incluye estos atributos en el resultado
+      attributes: ['nombre', 'rut','curso'], // Incluye estos atributos en el resultado
       include: [{
         model: Atraso, // Incluye la relación con Atraso
         attributes: ['totalatrasos'], // Incluye el atributo totalAtrasos de Atraso
@@ -17,7 +17,8 @@ export async function obtenerAlumnosConAtrasos(req, res) {
     // Procesa los datos obtenidos
     const result = alumnos.map(alumno => ({
       nombre: alumno.nombre,
-      rut: alumno.rutpersona, // Usa 'rut' si es el campo correcto para el RUT
+      rut: alumno.rut, // Usa 'rut' si es el campo correcto para el RUT
+      curso: alumno.curso,
       totalatrasos: alumno.Atrasos.map(atraso => atraso.totalatrasos) // Obtiene directamente el totalAtrasos
     }));
     console.log(result.totalatrasos);
