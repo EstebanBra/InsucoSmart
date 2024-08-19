@@ -12,11 +12,17 @@ export default function Login() {
 
     async function loginSubmit(data) {
         try {
-            await loginAPI(data);
+            const response = await loginAPI(data);
             setShowNotification(true);
             setTimeout(() => {
                 setShowNotification(false);
-                navigate('/ProfesorPage');
+                
+                // Redireccionar según el rol del usuario
+                if (response.rol === 'Administrador') {
+                    navigate('/');  // Página para administradores
+                }else if (response.rol === 'Profesor') {
+                    navigate('/ProfesorPage');  // Página para profesores
+                }
             }, 2200);
         } catch (e) {
             setError(e.message);

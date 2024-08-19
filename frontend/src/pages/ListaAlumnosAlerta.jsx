@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ListaAlumnos } from '../services/listaAlumnos.service.js';
+import { AlumnosAlertaa } from '../services/listaAlumnos.service.js';
 import '../styles/tabla.css'
 import NavBar from '../components/NavBar.jsx';
 
-function ListarAlumnos() {
+function ListarAlumnosAlerta() {
   const [alumnos, setAlumnos] = useState([]);
   const [error, setError] = useState(null);
 
@@ -11,7 +11,7 @@ function ListarAlumnos() {
   useEffect(() => {
     const obtenerListaAlumnos = async () => {
       try {
-        const response = await ListaAlumnos();
+        const response = await AlumnosAlertaa();
         setAlumnos(response.data);
       } catch (error) {
         setError(error);
@@ -19,12 +19,11 @@ function ListarAlumnos() {
     };
     obtenerListaAlumnos();
   }, []);
-
   return (
     <div className="body-listaAlumnos">
       <NavBar />
       <div className="title">
-        <h1>Atrasos de los Alumnos</h1>
+        <h1>Lista de Alumnos con alerta</h1>
       </div>
       <div className= 'container-listaAlumnos'>
         {alumnos.length > 0 ? (
@@ -47,6 +46,7 @@ function ListarAlumnos() {
                     <td><input type="checkbox" /></td>
                 </tr>
               ))}
+
             </tbody>
           </table>
         ) : (
@@ -61,4 +61,4 @@ function ListarAlumnos() {
   );
 }
 
-export default ListarAlumnos;
+export default ListarAlumnosAlerta;

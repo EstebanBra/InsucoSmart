@@ -21,8 +21,6 @@ export async function obtenerAlumnosConAtrasos(req, res) {
       curso: alumno.curso,
       totalatrasos: alumno.Atrasos.map(atraso => atraso.totalatrasos) // Obtiene directamente el totalAtrasos
     }));
-    console.log(result.totalatrasos);
-
     // Envía la respuesta en formato JSON
     res.json(result);
   } catch (error) {
@@ -49,7 +47,13 @@ export async function obtenerAlumnosConAlertaAtraso(req, res) {
       }
     });
     // Filtra los alumnos que tienen atrasos
-    const alumnosConAtrasos = alumnos.filter(alumno => alumno.Atrasos.length  > 0);
+    const alumnosConAtrasos = alumnos.map(alumno => ({
+      nombre: alumno.nombre,
+      rut: alumno.rut,
+      curso: alumno.curso,
+      totalatrasos: alumno.Atrasos.length > 0 ? alumno.Atrasos[0].totalatrasos : 0
+    }));
+    
     res.json(alumnosConAtrasos); // Responde con la lista de alumnos con atrasos
   } catch (error) {
     console.error('Error al encontrar alumnos:', error);

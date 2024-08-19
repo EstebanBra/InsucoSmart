@@ -11,7 +11,7 @@ function ProfesorPage() {
     };
 
     const handleOtraAccion = () => {
-        navigate('/otra-accion'); // Otra ruta o acción
+        navigate('/listaAlerta'); // Otra ruta o acción
     };
 
     return (
@@ -22,7 +22,7 @@ function ProfesorPage() {
             </div>
             <div className="button-container">
                 <button className="styled-button" onClick={handleListarAlumnos}>Listar Alumnos</button>
-                <button className="styled-button" onClick={handleOtraAccion}>Otra Acción</button>
+                <button className="styled-button" onClick={handleOtraAccion}>Listar Aumnos con Alerta</button>
             </div>
         </div>
     );

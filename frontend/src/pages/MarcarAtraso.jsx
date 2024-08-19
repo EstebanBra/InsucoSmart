@@ -11,7 +11,6 @@ function MarcarAtraso() {
     const [ticketVisible, setTicketVisible] = useState(false);
     const [ticketData, setTicketData] = useState({});
     const [fechaYHora, setFechaYHora] = useState('');
-
     //useEffect para rendederizar Fecha y Hora Actual en Pantalla
     useEffect(() => {
         const actualizarFechaYHora = () => {
