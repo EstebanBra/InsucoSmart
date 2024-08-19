@@ -1,0 +1,34 @@
+.atraso-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.atraso-container main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-atraso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px; /* Limita el ancho del formulario si es necesario */
+}
+
+.form-atraso div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form-atraso label {
+    margin-right: 10px; /* Espacio entre el label y el input */
+}
+
+.rut-input {
+    flex: 1; /* Hace que el input ocupe el espacio restante en el contenedor flex */
+}
