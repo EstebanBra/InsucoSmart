@@ -16,12 +16,11 @@ export default function Login() {
             setShowNotification(true);
             setTimeout(() => {
                 setShowNotification(false);
-                
-                // Redireccionar según el rol del usuario
                 if (response.rol === 'Administrador') {
-                    navigate('/');  // Página para administradores
-                }else if (response.rol === 'Profesor') {
-                    navigate('/ProfesorPage');  // Página para profesores
+                    navigate('/');
+                }
+                if (response.rol === 'Profesor') {
+                    navigate('/ProfesorPage');
                 }
             }, 2200);
         } catch (e) {

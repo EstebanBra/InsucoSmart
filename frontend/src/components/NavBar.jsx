@@ -20,12 +20,6 @@ export default function NavBar() {
         rol = user.rol;
     }
 
-    function goHome() {
-        navigate('/profesorPage');
-    }
-    function goHome1() {
-        navigate('/');
-    }
     function login() {
         navigate('/login');
     }
@@ -39,11 +33,14 @@ export default function NavBar() {
         <nav className="navbar">
             <h1 className="navbar-logo">{letra}</h1>
             <div className="dropdowns">
-                {rol === "" && (
-                    <div className="dropdown">
-                    <button className="navbar-button" onClick={goHome1}>Inicio</button>
-                    </div>
-                )}
+                <div className="dropdown">
+                    {rol === "Profesor" && (
+                        <button className="navbar-button" onClick={() => {navigate('/profesorPage')}}>Inicio</button>
+                    )}
+                    {rol !== "" && rol !== "Profesor" && (
+                        <button className="navbar-button" onClick={() => {navigate('/')}}>Inicio</button>
+                    )}
+                </div>
                 {rol === "Administrador" && (
                     <div className="dropdown">
                         <button className='navbar-button'>
@@ -61,12 +58,7 @@ export default function NavBar() {
                         <button className="navbar-button" onClick={login}>Iniciar sesión</button>
                     </div>
                 )}
-                {rol === "Profesor" && (
-                    <div className="dropdown">
-                    <button className="navbar-button" onClick={goHome}>Inicio</button>
-                    </div>
-                )}
-                {rol === "Profesor" && (
+                {rol !== "" && (
                     <div className="dropdown">
                         <button className="navbar-button" onClick={logout}>Cerrar sesión</button>
                     </div>
