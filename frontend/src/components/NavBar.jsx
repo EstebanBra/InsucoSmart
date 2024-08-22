@@ -23,8 +23,8 @@ export default function NavBar() {
     function login() {
         navigate('/login');
     }
-    function logout() {
-        logoutAPI();
+    async function logout() {
+        await logoutAPI();
         setUser(null);
         navigate('/');
     }
