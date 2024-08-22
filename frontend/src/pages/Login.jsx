@@ -2,18 +2,19 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAPI } from '../services/auth.service';
 import Form from '../components/Form.jsx';
-import { SesionExitosa } from '../helpers/Notifications.jsx';
+import { Successful } from '../helpers/Notifications.jsx';
 
 export default function Login() {
     const navigate = useNavigate();
     const [error, setError] = useState(null);
     const [showNotification, setShowNotification] = useState(false);
     const [formData, setFormData] = useState({ rut: '', contrasena: '' });
-
+    const [notificationMessage, setNotificationMessage] = useState('');
     async function loginSubmit(data) {
         try {
             const response = await loginAPI(data);
             setShowNotification(true);
+            setNotificationMessage('¡Inicio de sesión exitoso!');
             setTimeout(() => {
                 setShowNotification(false);
                 if (response.rol === 'Administrador') {
@@ -41,7 +42,7 @@ export default function Login() {
     return (
         <main>
             {error && <p>{error}</p>}
-            {showNotification && <SesionExitosa />}
+            {showNotification && <Successful message={notificationMessage} />}
             <Form
                 title='Bienvenido'
                 fields={[

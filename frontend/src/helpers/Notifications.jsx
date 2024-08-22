@@ -1,7 +1,7 @@
 import '../styles/notifications.css';
 import checkButton from '../assets/check-circle.svg';
 
-export function SesionExitosa() {
+export function Successful({message}) {
     return (
         <div className='notification-wrapper'>
             <div className='notification'>
@@ -11,7 +11,7 @@ export function SesionExitosa() {
                         alt='Success'
                         className='notification__icon'
                         />
-                    ¡Inicio de sesión exitoso!
+                    {message}
                 </div>
                 <div className='notification__progress'></div>
             </div>
