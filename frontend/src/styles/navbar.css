@@ -25,6 +25,7 @@
   height: 38px;
   width: 38px;
   border-radius: 50%;
+  color: #f9f9f9;
   background: rgb(255 255 255 / 10%);
   backdrop-filter: blur(10px);
 }
