@@ -17,8 +17,6 @@ export async function logoutAPI() {
     try {
         await axios.post('/auth/logout');
         sessionStorage.removeItem('usuario');
-        console.dir(cookies);
-        cookies.remove('miCookie');
     } catch (error) {
         console.error('Error al cerrar sesión:', error);
     }
