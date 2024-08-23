@@ -1,8 +1,9 @@
-import Form from '../components/Form.jsx';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { crearUsuarioAPI } from '../services/user.service.js';
 import { Successful } from '../helpers/Notifications.jsx';
+import Form from '../components/Form.jsx';
+import NavBar from '../components/NavBar.jsx';
 
 //! Validar si el rol seleccionado aparezcan o desaparezcan campos
 //* El campo de los cursos debe ser seleccionable
@@ -51,6 +52,7 @@ export default function CrearUsuario() {
     return (
         <>
             {showNotification && <Successful message="¡Cuenta creada exitosamente!" />}
+            <NavBar />
             <Form
                 title="Crear usuario"
                 fields={[
