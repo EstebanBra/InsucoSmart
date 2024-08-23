@@ -50,7 +50,6 @@ export default function CrearUsuario() {
 
     return (
         <>
-            {error && <p>{error}</p>}
             {showNotification && <Successful message="¡Cuenta creada exitosamente!" />}
             <Form
                 title="Crear usuario"
@@ -94,6 +93,7 @@ export default function CrearUsuario() {
                 buttonText="Crear"
                 onSubmit={createSubmit}
                 buttonDisabled={!isFormValid}
+                footerContent={error && <p>{error}</p>}
             />
         </>
     );

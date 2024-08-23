@@ -37,7 +37,7 @@ export default function NavBar() {
                     {rol === "Profesor" && (
                         <button className="navbar-button" onClick={() => {navigate('/profesorPage')}}>Inicio</button>
                     )}
-                    {rol !== "" && rol !== "Profesor" && (
+                    {rol !== "Profesor" && (
                         <button className="navbar-button" onClick={() => {navigate('/')}}>Inicio</button>
                     )}
                 </div>
@@ -49,7 +49,7 @@ export default function NavBar() {
                         </button>
                         <div className="dropdown-menu">
                             <a href="/usuario/crear" className='navbar-button'>Crear usuario</a>
-                            <a href="/admin/users" className='navbar-button'>Listar académicos</a>
+                            <a href="/listar/academicos" className='navbar-button'>Listar académicos</a>
                         </div>
                     </div>
                 )}

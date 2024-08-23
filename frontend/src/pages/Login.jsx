@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAPI } from '../services/auth.service';
-import Form from '../components/Form.jsx';
 import { Successful } from '../helpers/Notifications.jsx';
+import NavBar from '../components/NavBar.jsx';
+import Form from '../components/Form.jsx';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ export default function Login() {
 
     return (
         <main>
-            {error && <p>{error}</p>}
+            <NavBar />
             {showNotification && <Successful message={notificationMessage} />}
             <Form
                 title='Bienvenido'
@@ -64,6 +65,7 @@ export default function Login() {
                 buttonText="Iniciar sesión"
                 onSubmit={loginSubmit}
                 buttonDisabled={!isFormValid}
+                footerContent={error && <p>{error}</p>}
             />
         </main>
     );
