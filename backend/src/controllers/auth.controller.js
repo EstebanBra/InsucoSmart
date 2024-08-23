@@ -17,7 +17,7 @@ export async function iniciarSesion(req, res) {
             return res.status(401).json({ message: 'RUN o contraseña incorrectos' });
         }
 
-        const rolesPermitidos = ['Administrador', 'Profesor'];
+        const rolesPermitidos = ['Administrador', 'Profesor', 'Inspector', 'Alumno'];
         if (!rolesPermitidos.includes(usuarioEncontrado.rol)) {
             return res.status(403).json({ message: 'No tienes permitido acceder aqui' });
         }
