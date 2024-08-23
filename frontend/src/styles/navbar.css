@@ -60,6 +60,15 @@
   align-items: flex-start;
   flex-direction: column;
 }
+/* Oscurecer todos los botones cuando se pasa el cursor sobre cualquiera */
+.dropdown:hover a.navbar-button {
+  opacity: 0.4;
+}
+
+/* Resaltar el botón específico cuando se pasa el cursor sobre él */
+.navbar-button:hover {
+  opacity: 1 !important;
+}
 
 .dropdown a {
   text-decoration: none;
@@ -155,7 +164,7 @@
 
   .dropdown-menu {
     position: absolute;
-    top: 75px;
+    top: 70px;
     padding: 6px 24px 10px;
     width: auto;
     overflow: visible;
@@ -164,7 +173,7 @@
     background: #202024;
     border-radius: 6px;
     place-items: start;
-    translate: 0 24px;
+    translate: 24px;
     transition: 0.3s;
   }
 

@@ -17,7 +17,7 @@ export default function Login() {
             setNotificationMessage('¡Inicio de sesión exitoso!');
             setTimeout(() => {
                 setShowNotification(false);
-                if (response.rol === 'Administrador') {
+                if (response.rol !== 'Profesor') {
                     navigate('/');
                 }
                 if (response.rol === 'Profesor') {
