@@ -22,17 +22,33 @@ export default function Form({ title, fields, buttonText, onSubmit, footerConten
                 {fields.map((field, index) => (
                     <div className='container-inputs' key={index}>
                         {field.label && <label className='label-form' htmlFor={field.name}>{field.label}</label>}
-                        <input
-                            className='input-form'
-                            label={field.type || 'text'}
-                            name={field.name}
-                            placeholder={field.placeholder}
-                            type={field.type || 'text'}
-                            value={field.value}
-                            required={field.required}
-                            disabled={field.disabled}
-                            onChange={field.onChange}
-                        />
+                        {field.options ? (
+                            <select
+                                className='input-form'
+                                name={field.name}
+                                placeholder={field.placeholder}
+                                value={field.value}
+                                required={field.required}
+                                disabled={field.disabled}
+                                onChange={field.onChange}
+                            >
+                                <option value="" disabled>Selecciona una opción</option>
+                                {field.options.map((option, idx) => (
+                                    <option key={idx} value={option}>{option}</option>
+                                ))}
+                            </select>
+                        ) : (
+                            <input
+                                className='input-form'
+                                name={field.name}
+                                placeholder={field.placeholder}
+                                type={field.type || 'text'}
+                                value={field.value}
+                                required={field.required}
+                                disabled={field.disabled}
+                                onChange={field.onChange}
+                            />
+                        )}
                     </div>
                 ))}
                 {buttonText && <button className='button-form' type='submit' disabled={buttonDisabled}>{buttonText}</button>}

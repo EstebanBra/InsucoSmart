@@ -10,6 +10,14 @@
     align-items: center;
     min-height: 100vh;
 }
+select.input-form {
+    appearance: none;
+}
+
+.input-form:focus {
+    border-color: #093B7B;
+    outline: none;
+}
 
 .form {
     display: flex;
