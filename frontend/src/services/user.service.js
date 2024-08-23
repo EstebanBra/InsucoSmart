@@ -8,3 +8,12 @@ export async function crearUsuarioAPI(data) {
         throw new Error(error.response?.data?.message || 'Error al crear el usuario');
     }
 }
+
+export async function listarAcademicos() {
+    try {
+        const { data } = await axios.get('/usuario/listar/academicos');
+        return data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+}
