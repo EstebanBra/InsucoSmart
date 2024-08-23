@@ -73,3 +73,34 @@ export async function listarAcademicos(req, res) {
         res.status(500).json({ message: error.message });
     }
 }
+
+export async function modificarUsuario(req, res){
+    try {
+    const { rut } = req.params;
+    const { nombre, curso, rol, contrasena } = req.body;
+    // Verifica si el usuario existe
+    const usuarioEncontrado = await Usuario.findOne({ where: { rut } });
+    if (!usuarioEncontrado) {
+      return res.status(404).json({ message: `Usuario con RUT: ${rut} no encontrado` });
+    }
+
+    // Actualiza solo los campos que se desean modificar
+    if (nombre) usuarioEncontrado.nombre = nombre;
+    if (curso) usuarioEncontrado.curso = curso;
+    if (rol) usuarioEncontrado.rol = rol;
+    if (contrasena) {
+        usuarioEncontrado.contrasena = await bcrypt.hash(contrasena, 10);
+    }
+
+    await usuarioEncontrado.save();
+
+    res.status(200).json({
+        message: 'Usuario con RUT: ${rut} modificado correctamente',
+        usuario: usuarioEncontrado
+    });
+
+    } catch (error) {
+        console.error('Error en user.controller.js -> modificarUsuario():',error);
+        res.status(500).json({ message: error.message });
+    }
+}
