@@ -1,8 +1,11 @@
 // src/pages/ListarAcademicos.jsx
 import React, { useState, useEffect } from 'react';
 import { listarAcademicos } from '../services/user.service.js';
+import { eliminarPersonaAPI } from '../services/user.service.js';
 import NavBar from '../components/NavBar.jsx';
-import '../styles/tabla.css'; // Asegúrate de que esta ruta es correcta
+import '../styles/tabla.css';
+import editIcon from '../assets/edit.svg';
+import deleteIcon from '../assets/delete.svg';
 
 export default function ListarAcademicos() {
     const [academicos, setAcademicos] = useState([]);
@@ -12,7 +15,6 @@ export default function ListarAcademicos() {
         function obtenerListaAcademicos() {
             listarAcademicos()
                 .then(response => {
-                    console.dir(response.academicos);
                     setAcademicos(response.academicos);
                 })
                 .catch(error => {
@@ -21,6 +23,15 @@ export default function ListarAcademicos() {
         }
         obtenerListaAcademicos();
     }, []);
+    
+    async function eliminarPersona(rut) {
+        try {
+            await eliminarPersonaAPI(rut);
+            setAcademicos(academicos.filter(academico => academico.rut !== rut))
+        } catch (error) {
+            setError(error);
+        }
+    }
 
     return (
         <>
@@ -30,9 +41,8 @@ export default function ListarAcademicos() {
                     <h1>Listado de académicos</h1>
                 </div>
                 <div className="container-listaAlumnos">
-                    {error ? (
-                        <p>Error: {error.message}</p>
-                    ) : academicos.length > 0 ? (
+                    {error && <o>{error}</o>}
+                    {academicos.length > 0 ? (
                         <table>
                             <thead>
                                 <tr>
@@ -40,6 +50,7 @@ export default function ListarAcademicos() {
                                     <th>RUN</th>
                                     <th>Nombre</th>
                                     <th>Curso</th>
+                                    <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,6 +60,14 @@ export default function ListarAcademicos() {
                                         <td>{academico.rut}</td>
                                         <td>{academico.nombre}</td>
                                         <td>{academico.curso}</td>
+                                        <td className="td-tabla">
+                                            <button className="tabla-button edit-button">
+                                                <img src={editIcon}></img>
+                                            </button>
+                                            <button className="tabla-button delete-button" onClick={() => {eliminarPersona(academico.rut)}}>
+                                                <img src={deleteIcon}></img>
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

@@ -50,8 +50,41 @@ h1 {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     padding: 10px;
 }
+.td-tabla {
+    display:flex;
+    justify-content: space-evenly;
+}
+.tabla-button {
+    width:30px;
+    height:30px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+.tabla-button img {
+    width: 20px;
+    height: auto;
+}
 
+.edit-button {
+    background-color:#28a745;
+}
+.edit-button:hover {
+    background-color: #218838;
+}
 
+.delete-button {
+background-color: #dc3545;
+}
+.delete-button:hover {
+    background-color: #b52a35;
+}
 
 input[type="checkbox"] {
     width: 25px;

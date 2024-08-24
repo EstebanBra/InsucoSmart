@@ -17,3 +17,12 @@ export async function listarAcademicos() {
         throw error.response?.data || error.message;
     }
 }
+
+export async function eliminarPersonaAPI(rut) {
+    try {
+        const response = await axios.delete(`/usuario/eliminar/${rut}`);
+        return response;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+}
