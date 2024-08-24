@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import Usuario from '../models/user.model.js';
+import Atraso from '../models/atrasos.model.js';
 
 export async function crearUsuario(req, res) {
     try {
@@ -46,6 +47,7 @@ export async function crearUsuario(req, res) {
 export async function eliminarUsuario(req, res) {
     try {
         const { rut } = req.params;
+        await Atraso.destroy({ where: { rutpersona: rut } });
         const usuarioEliminado = await Usuario.destroy({ where: { rut } });
 
         if (usuarioEliminado) {

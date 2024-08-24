@@ -20,7 +20,8 @@ const Atraso = sequelize.define('Atraso', {
       references: {
         model: Usuario,
         key: 'rut'
-      }
+      },
+      onDelete: 'CASCADE'
     }
   }, {
     tableName: 'atraso',
