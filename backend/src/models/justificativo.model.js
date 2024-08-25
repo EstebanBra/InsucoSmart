@@ -2,10 +2,14 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/configDB.js';
 import Usuario from '../models/user.model.js';
 
-const Justificativo = sequelize.define('Justificactivo', {
+const Justificativo = sequelize.define('Justificativo', {
+    justificativo_id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true, // Define `id` como la clave primaria
+    },
     rutpersona: {
         type: DataTypes.STRING(12),
-        primaryKey: true,
         references: {
             model: Usuario,
             key: 'rut'
@@ -16,8 +20,11 @@ const Justificativo = sequelize.define('Justificactivo', {
     },
     estado: {
         type: DataTypes.STRING
+    },
+    archivo_url: {
+        type: DataTypes.STRING
     }
-},{
+}, {
     tableName: 'justificativo',
     timestamps: false
 });
