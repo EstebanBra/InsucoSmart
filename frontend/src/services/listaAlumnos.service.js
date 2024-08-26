@@ -17,3 +17,11 @@ export async function AlumnosAlertaa() {
         throw new Error(error.response?.data?.message || 'Error en listar a los alumnos.');
     }
 }
+export async function getAtrasosAlumno() {
+    try {
+      const response = await axios.get('/atraso/atrasosAlumno');
+      return response;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error en listar a los atrasos del alumno.');
+    }
+  }

@@ -1,10 +1,7 @@
 import { Router } from 'express';
 import userRoutes from './user.routes.js';
 import authRoutes from './auth.routes.js';
-
-// Enrutador para atrasos
 import atrasosRoutes from './atrasos.routes.js';
-// Enrutador para lista de alumnos
 import listaAlumnosRoutes from './listaAlumnos.routes.js';
 
 const router = Router();
@@ -17,5 +14,6 @@ router.use('/atraso', listaAlumnosRoutes);
 router.get('/');
 router.use('/auth', authRoutes);
 router.use('/usuario', userRoutes);
+
 
 export default router;

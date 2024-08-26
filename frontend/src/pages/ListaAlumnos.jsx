@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { ListaAlumnos } from '../services/listaAlumnos.service.js';
 import '../styles/tabla.css'

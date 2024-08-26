@@ -23,6 +23,7 @@ export async function iniciarSesion(req, res) {
         }
 
         const contrasenaValida = await bcrypt.compare(contrasena, usuarioEncontrado.contrasena);
+        req.session.rutAlumno = usuarioEncontrado.rut; // para guardar el rut de la sesion iniciada
         if (contrasenaValida) {
             const datosUsuario = {
                 rut: usuarioEncontrado.rut,

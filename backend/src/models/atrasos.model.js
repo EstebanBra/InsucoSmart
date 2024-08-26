@@ -12,7 +12,7 @@ const Atraso = sequelize.define('Atraso', {
     descripcion: {
       type: DataTypes.STRING
     },
-    totalatrasos: {
+    atraso: {
       type: DataTypes.INTEGER
     },
     rutpersona: {
@@ -20,8 +20,11 @@ const Atraso = sequelize.define('Atraso', {
       references: {
         model: Usuario,
         key: 'rut'
-      },
-      onDelete: 'CASCADE'
+      }
+    },
+    fecha:{
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     tableName: 'atraso',
