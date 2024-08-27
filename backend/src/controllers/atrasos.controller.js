@@ -12,12 +12,17 @@ export async function registrarAtraso(req, res) {
       return res.status(404).json({ message: 'Alumno no encontrado' });
     }
 
+    // Obtenemos la fecha y hora actuales en la zona horaria de Chile
+    const currentDate = formatInTimeZone(new Date(), 'America/Santiago', 'yyyy-MM-dd');
+    const currentTime = formatInTimeZone(new Date(), 'America/Santiago', 'HH:mm:ss');
+
     // Creamos un nuevo atraso para el estudiante
     const nuevoAtraso = await Atraso.create({
       rutpersona: persona.rut,
       atraso: 1,
       descripcion: 'Atraso registrado',
-      fecha: new Date() // Utilizamos la fecha actual del modelo
+      fecha: currentDate,
+      hora: currentTime,
     });
 
     // Buscamos todos los atrasos del estudiante
@@ -31,7 +36,8 @@ export async function registrarAtraso(req, res) {
       rut,
       totalAtrasos,
       curso: persona.curso,
-      fechaHoraIngreso: nuevoAtraso.fecha // Mostramos la fecha del nuevo atraso
+      fecha: nuevoAtraso.fecha, // Mostramos la fecha del nuevo atraso
+      hora: nuevoAtraso.hora
     });
   } catch (error) {
     console.error('Error registrando el atraso:', error);
