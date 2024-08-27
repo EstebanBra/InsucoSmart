@@ -1,20 +1,31 @@
 import Justificativo from '../models/justificativo.model.js';
-import Usuario from '../models/user.model.js';
+import Atraso from '../models/atrasos.model.js';
 import { drive } from '../config/googleService.js'; // Asegúrate de que esta importación sea correcta
 import { Readable } from 'stream';
 
 export async function generarJustificativo(req, res) {
     try {
-        const { rutpersona, motivo, estado } = req.body;
+        const { motivo, fecha, hora } = req.body;
         const archivo = req.file;
+        const estado = 'porRevisar';
 
-        if (!rutpersona || !motivo || !estado) {
+        // Obtener el RUT del alumno que está en sesion
+        const rutAlumno = req.session.rut;
+        if (!rutAlumno) {
+          return res.status(401).json({ message: 'No autenticado' });     
+        }
+
+        if (!motivo || !fecha || !hora ) {
             return res.status(400).json({ message: 'Faltan datos necesarios' });
         }
 
-        const usuario = await Usuario.findByPk(rutpersona);
-        if (!usuario) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+        // Buscar el atraso específico usando el RUT, fecha y hora
+        const atraso = await Atraso.findOne({
+            where: { rutpersona, fecha, hora }
+        });
+
+        if (!atraso) {
+            return res.status(404).json({ message: 'Atraso no encontrado' });
         }
 
         let archivo_url = null;
@@ -52,15 +63,12 @@ export async function generarJustificativo(req, res) {
             rutpersona,
             motivo,
             estado,
-            archivo_url
+            archivo_url,
+            atraso_id: atraso.atraso_id
         });
 
         res.status(201).json({
-            justificativo: nuevoJustificativo,
-            usuario: {
-                nombre: usuario.nombre,
-                rol: usuario.rol
-            }
+            justificativo: nuevoJustificativo
         });
     } catch (error) {
         console.error('Error subiendo justificativo:', error);

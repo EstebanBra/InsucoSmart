@@ -30,6 +30,7 @@ export async function iniciarSesion(req, res) {
                 nombre: usuarioEncontrado.nombre,
                 curso: usuarioEncontrado.curso,
             };
+            req.session.rut = rut; // Asignar el RUT a la sesión
             res.status(200).json({ message: 'Inicio de sesión exitoso', data: datosUsuario });
         } else {
             res.status(401).json({ message: 'RUN o contraseña incorrectos' });

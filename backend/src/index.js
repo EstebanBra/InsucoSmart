@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { connectDB } from './config/configDB.js';
 import indexRoutes from './routes/index.routes.js';
+import session from 'express-session';
 
 async function setupServer() {
     try {
@@ -13,6 +14,14 @@ async function setupServer() {
         app.use(json());
         app.use(urlencoded({ extended: true }));
         app.use(morgan('dev'));
+
+        // Esto es para poder obtener el rut de la sesion iniciada
+        app.use(session({
+            secret: '2024', // Cambia esta clave secreta por una propia
+            resave: false,
+            saveUninitialized: true
+        }));
+
         app.use('/api', indexRoutes);
 
         app.listen(PORT, () => {

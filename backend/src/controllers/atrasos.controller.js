@@ -1,48 +1,46 @@
 import Usuario from '../models/user.model.js';
 import Atraso from '../models/atrasos.model.js';
-
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 export async function registrarAtraso(req, res) {
   const { rut } = req.body; // Recibimos el RUT en el cuerpo de la solicitud
 
   try {
+    // Obtener la fecha y hora actual en Santiago, Chile
+    const now = new Date();
+    const fecha = format(now, 'yyyy-MM-dd', { locale: es });
+    const hora = format(now, 'HH:mm:ss', { locale: es });
+
     // Buscamos la persona por su RUT
     const persona = await Usuario.findOne({ where: { rut: rut } });
-
     if (!persona) {
       return res.status(404).json({ message: 'Alumno no encontrado' });
     }
+    
+    // Creamos un nuevo atraso para el estudiante
+    const nuevoAtraso = await Atraso.create({
+      rutpersona: persona.rut,
+      atraso: 1,
+      descripcion: 'Atraso registrado',
+      fecha: fecha,
+      hora: hora,
+    });
 
-    // Buscamos el atraso existente para el estudiante
-    const atraso = await Atraso.findOne({ where: { rutpersona: persona.rut } });
+    // Buscamos todos los atrasos del estudiante
+    const atrasos = await Atraso.findAll({ where: { rutpersona: persona.rut } });
 
-    if (!atraso) {
-      // Si no existe un atraso, creamos uno nuevo
-      const nuevoAtraso = await Atraso.create({
-        rutpersona: persona.rut,
-        descripcion: 'Atraso registrado',
-        totalatrasos: 1,
-        fechaHoraIngreso: new Date()
-      });
-      return res.json({
-        nombre: persona.nombre,
-        rut,
-        totalAtrasos: 1,
-        curso: persona.curso,
-        fechaHoraIngreso: new Date()
-      });
-    } else {
-      // Si existe un atraso, actualizamos el total de atrasos
-      await atraso.update({ totalatrasos: atraso.totalatrasos + 1 });
+    // Contamos el total de atrasos
+    const totalAtrasos = atrasos.length;
 
-      return res.json({
-        nombre: persona.nombre,
-        rut,
-        totalAtrasos: atraso.totalatrasos,
-        curso: persona.curso,
-        fechaHoraIngreso: new Date().toLocaleString("es-CL", { timeZone: "America/Santiago" })
-      });
-    }
+    return res.json({
+      nombre: persona.nombre,
+      rut,
+      totalAtrasos,
+      curso: persona.curso,
+      fecha: nuevoAtraso.fecha, // Mostramos la fecha del nuevo atraso
+      hora: nuevoAtraso.hora
+    });
   } catch (error) {
     console.error('Error registrando el atraso:', error);
     return res.status(500).json({ message: 'Error registrando el atraso' });

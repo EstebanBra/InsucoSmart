@@ -10,7 +10,7 @@ export async function obtenerAlumnosConAtrasos(req, res) {
       attributes: ['nombre', 'rut','curso'], // Incluye estos atributos en el resultado
       include: [{
         model: Atraso, // Incluye la relación con Atraso
-        attributes: ['totalatrasos'], // Incluye el atributo totalAtrasos de Atraso
+        attributes: ['atraso'], // Incluye el atributo totalAtrasos de Atraso
       }],
     });
 
@@ -19,7 +19,7 @@ export async function obtenerAlumnosConAtrasos(req, res) {
       nombre: alumno.nombre,
       rut: alumno.rut, // Usa 'rut' si es el campo correcto para el RUT
       curso: alumno.curso,
-      totalatrasos: alumno.Atrasos.map(atraso => atraso.totalatrasos) // Obtiene directamente el totalAtrasos
+      totalatrasos: alumno.Atrasos.reduce((acumulado, atraso) => acumulado + atraso.atraso, 0)
     }));
     // Envía la respuesta en formato JSON
     res.json(result);
@@ -29,7 +29,6 @@ export async function obtenerAlumnosConAtrasos(req, res) {
   }
 }
 
-
 export async function obtenerAlumnosConAlertaAtraso(req, res) {
   try {
     // Obtiene todos los registros de Persona con el rol de 'alumno'
@@ -38,25 +37,59 @@ export async function obtenerAlumnosConAlertaAtraso(req, res) {
       attributes: ['nombre', 'rut','curso'],
       include: {
         model: Atraso,
-        attributes: ['totalatrasos'],
-        where: {
-          totalatrasos: {
-            [Op.gte]: 3
-          }
-        }
+        attributes: ['atraso'] // Cambie esta linea y quite otras cuantas
       }
     });
-    // Filtra los alumnos que tienen atrasos
-    const alumnosConAtrasos = alumnos.map(alumno => ({
+     // Filtra los alumnos que tienen atrasos
+     const alumnosConAtrasos = alumnos.filter(alumno => alumno.Atrasos.length > 0).map(alumno => ({
       nombre: alumno.nombre,
       rut: alumno.rut,
       curso: alumno.curso,
-      totalatrasos: alumno.Atrasos.length > 0 ? alumno.Atrasos[0].totalatrasos : 0
+      totalatrasos: alumno.Atrasos.reduce((acumulado, atraso) => acumulado + atraso.atraso, 0) // cambie esta linea
     }));
-    
-    res.json(alumnosConAtrasos); // Responde con la lista de alumnos con atrasos
+
+    // Filtra los alumnos que tienen más de 3 atrasos
+    const alumnosConMasDe3Atrasos = alumnosConAtrasos.filter(alumno => alumno.totalatrasos >= 3); // agregue esta linea
+
+    res.json(alumnosConMasDe3Atrasos); // Responde con la lista de alumnos con atrasos
   } catch (error) {
     console.error('Error al encontrar alumnos:', error);
     res.status(500).json({ message: 'Error alumnos' });
+  }
+}
+
+export async function obtenerAtrasosDeAlumno(req, res) {
+  try {
+    // Obtener el RUT del alumno que está en sesion
+    const rutAlumno = req.session.rut;
+    
+        if (!rutAlumno) {
+            return res.status(401).json({ message: 'No autenticado' });
+        }
+    console.log('RUT del alumno:', rutAlumno);
+
+    // Buscar los atrasos del alumno
+    const atrasos = await Atraso.findAll({
+      where: { rutpersona: rutAlumno },
+      attributes: ['atraso', 'descripcion', 'fecha']
+    });
+
+    // Responder con la lista de atrasos
+    res.json(atrasos);
+  } catch (error) {
+    console.error('Error al obtener atrasos:', error);
+    res.status(500).json({ message: 'Error atrasos' });
+  }
+}
+export async function obtenerRutAlumno(req, res) {
+  try {
+    const rutAlumno = req.session.rut;
+    if (!rutAlumno) {
+      return res.status(401).json({ message: 'No autenticado' });
+    }
+    res.json({ rut: rutAlumno });
+  } catch (error) {
+    console.error('Error al obtener RUT del alumno:', error);
+    res.status(500).json({ message: 'Error RUT' });
   }
 }
