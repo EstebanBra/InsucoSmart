@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Tabla = ({ datos, columnas }) => {
+const Tabla = ({ datos, columnas, titulos }) => {
   return (
     <div className="container-listaAlumnos">
       <table>
         <thead>
           <tr>
-            {columnas.map((columna) => (
-              <th key={columna}>{columna}</th>
+            {titulos.map((titulo) => (
+              <th key={titulo}>{titulo}</th>
             ))}
           </tr>
         </thead>
