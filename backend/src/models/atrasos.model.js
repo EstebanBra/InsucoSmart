@@ -16,6 +16,10 @@ const Atraso = sequelize.define('Atraso', {
       },
       onDelete: 'CASCADE'
     },
+    atraso: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     fecha: {
         type: DataTypes.DATEONLY,
         allowNull: false,

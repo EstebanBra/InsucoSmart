@@ -60,7 +60,8 @@ function MarcarAtraso() {
                         nombre={ticketData.nombre}
                         curso={ticketData.curso}
                         totalAtrasos={ticketData.totalAtrasos}
-                        fechaHoraIngreso={ticketData.fechaHoraIngreso}
+                        fecha={ticketData.fecha}
+                        hora={ticketData.hora}
                         logo={logoLiceo}
                     />
                 )}

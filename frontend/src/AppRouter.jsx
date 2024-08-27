@@ -7,6 +7,8 @@ import ProfesorPage from './pages/ProfesorPrincipalPage.jsx';
 import CrearUsuario from './pages/CrearUsuario.jsx';
 import ListarAcademicos from './pages/ListarAcademicos.jsx';
 import AtrasosAlumno from './pages/ListarAtrasosAlumno.jsx';
+import AlumnoPage from './pages/AlumnoPage.jsx';
+import JustificativoPage from './pages/IngresarJustificativo.jsx';
 
 export default function AppRouter() {
   return (
@@ -19,6 +21,10 @@ export default function AppRouter() {
       <Route path='/profesorPage' element = {<ProfesorPage/>}/>
       <Route path='/usuario/crear' element={<CrearUsuario />}/>
       <Route path='/listaAtrasos' element={<AtrasosAlumno />}/>
+      <Route path='/alumnoPage' element={<AlumnoPage />}/>
+      <Route path='/ingresarJustificativo' element={<JustificativoPage />}/>
+
+
     </Routes>
   );
 }

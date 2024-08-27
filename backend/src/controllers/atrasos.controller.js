@@ -10,7 +10,7 @@ export async function registrarAtraso(req, res) {
     // Obtener la fecha y hora actual en Santiago, Chile
     const now = new Date();
     const fecha = format(now, 'yyyy-MM-dd', { locale: es });
-    const hora = format(now, 'HH:mm:ss', { locale: es });
+    const hora = format(now, 'HH:mm', { locale: es });
 
     // Buscamos la persona por su RUT
     const persona = await Usuario.findOne({ where: { rut: rut } });
