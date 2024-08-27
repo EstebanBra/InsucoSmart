@@ -19,7 +19,7 @@ export default function JustificativoForm() {
         motivo: '',
         fecha: '',
         hora: '',
-        archivo: null
+        file: null
     });
 
     const handleInputChange = (event) => {
@@ -46,10 +46,14 @@ export default function JustificativoForm() {
         requestData.append('fecha', formData.fecha);
         requestData.append('hora', formData.hora);
         if (formData.archivo) {
-            requestData.append('archivo', formData.archivo);
+            requestData.append('file', formData.archivo);
         }
 
         try {
+            // Imprimir el contenido de FormData
+            for (let [key, value] of requestData.entries()) {
+                console.log(`${key}: ${value}`);
+            }
             const result = await uploadJustificativo(requestData);
             alert('Justificativo subido con éxito');
         } catch (error) {
@@ -86,7 +90,7 @@ export default function JustificativoForm() {
             onChange: handleInputChange
         },
         {
-            name: 'archivo',
+            name: 'file',
             label: 'Subir archivo',
             type: 'file',
             onChange: handleFileChange

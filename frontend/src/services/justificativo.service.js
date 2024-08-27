@@ -1,8 +1,5 @@
 import axios from './root.service.js';
 
-
-const API_URL = '/api/atraso';
-
 export const uploadJustificativo = async (formData) => {
     try {
         const response = await axios.post(`/atraso/upload-justificativo`, formData, {

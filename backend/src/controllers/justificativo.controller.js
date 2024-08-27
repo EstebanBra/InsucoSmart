@@ -7,11 +7,11 @@ export async function generarJustificativo(req, res) {
     try {
         const { motivo, fecha, hora } = req.body;
         const archivo = req.file;
-        const estado = 'porRevisar';
+        const estado = 'porRevisar';    
 
         // Obtener el RUT del alumno que está en sesion
-        const rutAlumno = req.session.rut;
-        if (!rutAlumno) {
+        const rutpersona = req.session.rut;
+        if (!rutpersona) {
           return res.status(401).json({ message: 'No autenticado' });     
         }
 
