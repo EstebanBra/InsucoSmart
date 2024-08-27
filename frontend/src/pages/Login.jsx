@@ -18,11 +18,14 @@ export default function Login() {
             setNotificationMessage('¡Inicio de sesión exitoso!');
             setTimeout(() => {
                 setShowNotification(false);
-                if (response.rol !== 'Profesor') {
+                if (response.rol === 'Administrador') {
                     navigate('/');
                 }
                 if (response.rol === 'Profesor') {
                     navigate('/ProfesorPage');
+                }
+                if (response.rol === 'Alumno') {
+                    navigate('/AlumnoPage');
                 }
             }, 2200);
         } catch (e) {
