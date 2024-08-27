@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/configDB.js';
-import Justificativo from './justificativo.model.js';
+import Usuario from '../models/user.model.js';
 
 const Atraso = sequelize.define('Atraso', {
     atraso_id: {
@@ -9,8 +9,12 @@ const Atraso = sequelize.define('Atraso', {
         primaryKey: true,
     },
     rutpersona: {
-        type: DataTypes.STRING(12),
-        allowNull: false,
+      type: DataTypes.STRING,
+      references: {
+        model: Usuario,
+        key: 'rut'
+      },
+      onDelete: 'CASCADE'
     },
     fecha: {
         type: DataTypes.DATEONLY,
@@ -19,22 +23,12 @@ const Atraso = sequelize.define('Atraso', {
     hora: {
       type: DataTypes.TIME,
       allowNull: false,
-    },
-    idJustificativo: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Justificativo,
-            key: 'justificativo_id'
-        },
-        allowNull: true // Ya que un atraso puede no tener justificativo
     }
 }, {
     tableName: 'atraso',
     timestamps: false
 });
 
-// Relaciones
-Atraso.belongsTo(Justificativo, { foreignKey: 'idJustificativo' });
-Justificativo.hasOne(Atraso, { foreignKey: 'idJustificativo' });
-
+  Atraso.belongsTo(Usuario, { foreignKey: 'rutpersona' });
+  Usuario.hasMany(Atraso, { foreignKey: 'rutpersona' });
 export default Atraso;
