@@ -1,9 +1,9 @@
 import { Sequelize } from 'sequelize';
-import { USERDB, PASSWORD, HOST, PORT, DATABASE } from './configEnv.js';
+import { USERDB, PASSWORD, HOST, DATABASE } from './configEnv.js';
 
 const sequelize = new Sequelize(DATABASE, USERDB, PASSWORD, {
     host: HOST,
-    port: PORT,
+    port: 5432,
     dialect: 'postgres', // Especifica el tipo de base de datos que se está utilizando
     logging: false // Oculta las consultas mostradas en la consola de la base de datos
 });
