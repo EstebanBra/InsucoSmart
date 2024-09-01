@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ListaAlumnos } from '../services/listaAlumnos.service.js';
-import '../styles/tabla.css'
+import '../styles/tabla.css';
 import NavBar from '../components/NavBar.jsx';
-import Tabla from '../components/Tabla.jsx'
+import DataTable from 'datatables.net-react';  // Importa el componente DataTables para React
+import DT from 'datatables.net-dt';            // Importa los estilos y funcionalidades de DataTables
+
+// Configura DataTables para que funcione con React
+DataTable.use(DT);
 
 function ListarAlumnos() {
   const [alumnos, setAlumnos] = useState([]);
@@ -12,8 +16,7 @@ function ListarAlumnos() {
     const obtenerListaAlumnos = async () => {
       try {
         const response = await ListaAlumnos();
-        const alumnosConCheckbox = response.data.map(alumno => ({ ...alumno, Seleccionar: <input type="checkbox" /> }));
-        setAlumnos(alumnosConCheckbox);
+        setAlumnos(response.data);
       } catch (error) {
         setError(error);
       }
@@ -21,8 +24,12 @@ function ListarAlumnos() {
     obtenerListaAlumnos();
   }, []);
 
-  const columnas = ['nombre', 'rut', 'curso', 'totalatrasos', 'Seleccionar'];
-  const titulos = ['Nombre', 'RUN', 'Curso', 'Total atrasos', ''];
+  const columnas = [
+    { title: 'Nombre', data: 'nombre' },
+    { title: 'RUN', data: 'rut' },
+    { title: 'Curso', data: 'curso' },
+    { title: 'Total atrasos', data: 'totalatrasos' },
+  ];
 
   return (
     <div className="body-listaAlumnos">
@@ -31,7 +38,15 @@ function ListarAlumnos() {
         <h1>Atrasos de los Alumnos</h1>
       </div>
       {alumnos.length > 0 ? (
-        <Tabla datos={alumnos} columnas={columnas} titulos={titulos} />
+        <DataTable
+          data={alumnos}
+          columns={columnas}
+          options={{
+            paging: true,
+            searching: true,
+            ordering: true,
+          }}
+        />
       ) : (
         error ? (
           <p>Error: {error.message}</p>

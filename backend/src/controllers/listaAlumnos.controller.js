@@ -1,26 +1,36 @@
 import Usuario from '../models/user.model.js';
 import Atraso from '../models/atrasos.model.js';
-import { Op } from 'sequelize';
+import Curso from '../models/curso.model.js';
+
 
 export async function obtenerAlumnosConAtrasos(req, res) {
   try {
     // Obtiene todos los registros de Persona con el rol de 'alumno'
     const alumnos = await Usuario.findAll({
       where: { rol: 'Alumno' }, // Filtra por el rol 'alumno'
-      attributes: ['nombre', 'rut','curso'], // Incluye estos atributos en el resultado
+      attributes: ['nombre', 'rut'], // Incluye estos atributos en el resultado
       include: [{
         model: Atraso, // Incluye la relación con Atraso
-        attributes: ['atraso'], // Incluye el atributo totalAtrasos de Atraso
-      }],
+        attributes: [] // No es necesario incluir atributos específicos aquí
+      },{
+        model: Curso,
+        attributes: ['numero_curso']
+      }]
     });
 
-    // Procesa los datos obtenidos
-    const result = alumnos.map(alumno => ({
-      nombre: alumno.nombre,
-      rut: alumno.rut, // Usa 'rut' si es el campo correcto para el RUT
-      curso: alumno.curso,
-      totalatrasos: alumno.Atrasos.reduce((acumulado, atraso) => acumulado + atraso.atraso, 0)
+    const result = await Promise.all(alumnos.map(async alumno => {
+      const totalAtrasos = await Atraso.count({
+        where: { rutpersona: alumno.rut, estado: true }
+      });
+
+      return {
+        nombre: alumno.nombre,
+        rut: alumno.rut,
+        curso: alumno.Curso.numero_curso,
+        totalatrasos: totalAtrasos // Total de atrasos por rut
+      };
     }));
+
     // Envía la respuesta en formato JSON
     res.json(result);
   } catch (error) {
@@ -31,27 +41,36 @@ export async function obtenerAlumnosConAtrasos(req, res) {
 
 export async function obtenerAlumnosConAlertaAtraso(req, res) {
   try {
-    // Obtiene todos los registros de Persona con el rol de 'alumno'
     const alumnos = await Usuario.findAll({
       where: { rol: 'Alumno' },
-      attributes: ['nombre', 'rut','curso'],
-      include: {
+      attributes: ['nombre', 'rut'],
+      include: [{
         model: Atraso,
-        attributes: ['atraso'] // Cambie esta linea y quite otras cuantas
-      }
+        attributes: []
+      }, {
+        model: Curso,
+        attributes: ['numero_curso']
+      }]
     });
-     // Filtra los alumnos que tienen atrasos
-     const alumnosConAtrasos = alumnos.filter(alumno => alumno.Atrasos.length > 0).map(alumno => ({
-      nombre: alumno.nombre,
-      rut: alumno.rut,
-      curso: alumno.curso,
-      totalatrasos: alumno.Atrasos.reduce((acumulado, atraso) => acumulado + atraso.atraso, 0) // cambie esta linea
+
+    // Filtra los alumnos que tienen atrasos
+    const result = await Promise.all(alumnos.map(async alumno => {
+      const totalAtrasos = await Atraso.count({
+        where: { rutpersona: alumno.rut, estado: true }
+      });
+
+      return {
+        nombre: alumno.nombre,
+        rut: alumno.rut,
+        curso: alumno.Curso.numero_curso,
+        totalatrasos: totalAtrasos
+      };
     }));
 
     // Filtra los alumnos que tienen más de 3 atrasos
-    const alumnosConMasDe3Atrasos = alumnosConAtrasos.filter(alumno => alumno.totalatrasos >= 3); // agregue esta linea
+    const alumnosConAlertaAtrasos = result.filter(alumno => alumno.totalatrasos >= 3);
 
-    res.json(alumnosConMasDe3Atrasos); // Responde con la lista de alumnos con atrasos
+    res.json(alumnosConAlertaAtrasos);
   } catch (error) {
     console.error('Error al encontrar alumnos:', error);
     res.status(500).json({ message: 'Error alumnos' });

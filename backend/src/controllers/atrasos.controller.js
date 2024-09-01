@@ -21,7 +21,7 @@ export async function registrarAtraso(req, res) {
     // Creamos un nuevo atraso para el estudiante
     const nuevoAtraso = await Atraso.create({
       rutpersona: persona.rut,
-      descripcion: 'Atraso registrado',
+      estado:1,
       fecha: fecha,
       hora: hora,
     });
