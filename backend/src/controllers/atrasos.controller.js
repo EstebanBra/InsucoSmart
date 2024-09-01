@@ -1,28 +1,30 @@
 import Usuario from '../models/user.model.js';
 import Atraso from '../models/atrasos.model.js';
-
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 export async function registrarAtraso(req, res) {
   const { rut } = req.body; // Recibimos el RUT en el cuerpo de la solicitud
 
   try {
+    // Obtener la fecha y hora actual en Santiago, Chile
+    const now = new Date();
+    const fecha = format(now, 'yyyy-MM-dd', { locale: es });
+    const hora = format(now, 'HH:mm', { locale: es });
+
     // Buscamos la persona por su RUT
     const persona = await Usuario.findOne({ where: { rut: rut } });
     if (!persona) {
       return res.status(404).json({ message: 'Alumno no encontrado' });
     }
-
-    // Obtenemos la fecha y hora actuales en la zona horaria de Chile
-    const currentDate = formatInTimeZone(new Date(), 'America/Santiago', 'yyyy-MM-dd');
-    const currentTime = formatInTimeZone(new Date(), 'America/Santiago', 'HH:mm:ss');
-
+    
     // Creamos un nuevo atraso para el estudiante
     const nuevoAtraso = await Atraso.create({
       rutpersona: persona.rut,
       atraso: 1,
       descripcion: 'Atraso registrado',
-      fecha: currentDate,
-      hora: currentTime,
+      fecha: fecha,
+      hora: hora,
     });
 
     // Buscamos todos los atrasos del estudiante

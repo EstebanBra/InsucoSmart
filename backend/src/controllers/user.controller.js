@@ -7,29 +7,19 @@ export async function crearUsuario(req, res) {
         const { rut, rol, nombre, curso, contrasena } = req.body;
 
         // Maneja posibles errores de campos requeridos
-        if (!rut) {
-            return res.status(400).json({ message: 'El parámetro "rut" es requerido.' });
-        }
-        if (!rol) {
-            return res.status(400).json({ message: 'El parámetro "rol" es requerido.' });
-        }
-        if (!nombre) {
-            return res.status(400).json({ message: 'El parámetro "nombre" es requerido.' });
-        }
+        if (!rut) return res.status(400).json({ message: 'El parámetro "rut" es requerido.' });
+        if (!rol) return res.status(400).json({ message: 'El parámetro "rol" es requerido.' });
+        if (!nombre) return res.status(400).json({ message: 'El parámetro "nombre" es requerido.' });
 
         // Verifica si el rut existe
         const rutEncontrado = await Usuario.findOne({ where: { rut } });
-        if (rutEncontrado) {
-            return res.status(400).json({ message: 'El rut ya se encuentra registrado.' });
-        }
+        if (rutEncontrado) return res.status(400).json({ message: 'El rut ya se encuentra registrado.' });
 
         // Asigna los datos
         const datosUsuario = { rut, rol, nombre, curso };
 
         // Encripta la contraseña
-        if (contrasena) {
-            datosUsuario.contrasena = await bcrypt.hash(contrasena, 10);
-        }
+        if (contrasena) datosUsuario.contrasena = await bcrypt.hash(contrasena, 10);
         
         // Crea el usuario en base al modelo respectivamente
         const usuario = await Usuario.create(datosUsuario);
@@ -78,28 +68,25 @@ export async function listarAcademicos(req, res) {
 
 export async function modificarUsuario(req, res){
     try {
-    const { rut } = req.params;
-    const { nombre, curso, rol, contrasena } = req.body;
-    // Verifica si el usuario existe
-    const usuarioEncontrado = await Usuario.findOne({ where: { rut } });
-    if (!usuarioEncontrado) {
-      return res.status(404).json({ message: `Usuario con RUT: ${rut} no encontrado` });
-    }
+        const { rut } = req.params;
+        const { nombre, curso, rol, contrasena } = req.body;
 
-    // Actualiza solo los campos que se desean modificar
-    if (nombre) usuarioEncontrado.nombre = nombre;
-    if (curso) usuarioEncontrado.curso = curso;
-    if (rol) usuarioEncontrado.rol = rol;
-    if (contrasena) {
-        usuarioEncontrado.contrasena = await bcrypt.hash(contrasena, 10);
-    }
+        // Verifica si el usuario existe
+        const usuarioEncontrado = await Usuario.findOne({ where: { rut } });
+        if (!usuarioEncontrado) return res.status(404).json({ message: `Usuario con RUT: ${rut} no encontrado` });
 
-    await usuarioEncontrado.save();
+        // Actualiza solo los campos que se desean modificar
+        if (nombre) usuarioEncontrado.nombre = nombre;
+        if (curso) usuarioEncontrado.curso = curso;
+        if (rol) usuarioEncontrado.rol = rol;
+        if (contrasena) usuarioEncontrado.contrasena = await bcrypt.hash(contrasena, 10);
 
-    res.status(200).json({
-        message: 'Usuario con RUT: ${rut} modificado correctamente',
-        usuario: usuarioEncontrado
-    });
+        await usuarioEncontrado.save();
+
+        res.status(200).json({
+            message: `Usuario con RUT: ${rut} modificado correctamente`,
+            usuario: usuarioEncontrado
+        });
 
     } catch (error) {
         console.error('Error en user.controller.js -> modificarUsuario():',error);

@@ -37,7 +37,7 @@ function AtrasosAlumno() {
     }
   }, [rutAlumno]);
 
-  const columnas = ['fecha'];
+  const columnas = ['fecha','hora'];
   const titulos = ['Fecha','Hora'];
 
   return (

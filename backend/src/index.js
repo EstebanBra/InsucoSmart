@@ -1,4 +1,4 @@
-import { HOST } from './config/configEnv.js';
+import { HOST, PORT } from './config/configEnv.js';
 import express, { urlencoded, json } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -24,8 +24,8 @@ async function setupServer() {
 
         app.use('/api', indexRoutes);
 
-        app.listen(3000, () => {
-            console.log(`=> Servidor corriendo en http://${HOST}:3000`);
+        app.listen(PORT, () => {
+            console.log(`=> Servidor corriendo en http://${HOST}:${PORT}`);
         });
     } catch (error) {
         console.error('Error en index.js -> setupServer(): ', error);

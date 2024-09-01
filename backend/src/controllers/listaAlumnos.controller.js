@@ -61,17 +61,16 @@ export async function obtenerAlumnosConAlertaAtraso(req, res) {
 export async function obtenerAtrasosDeAlumno(req, res) {
   try {
     // Obtener el RUT del alumno que está en sesion
-    const rutAlumno = req.session.rutAlumno;
-    
+    const rutAlumno = req.session.rut;
+    console.log('RUT del alumno:', rutAlumno);
         if (!rutAlumno) {
             return res.status(401).json({ message: 'No autenticado' });
         }
-    console.log('RUT del alumno:', rutAlumno);
 
     // Buscar los atrasos del alumno
     const atrasos = await Atraso.findAll({
       where: { rutpersona: rutAlumno },
-      attributes: ['atraso', 'descripcion', 'fecha']
+      attributes: ['atraso', 'fecha','hora']
     });
 
     // Responder con la lista de atrasos
@@ -83,7 +82,7 @@ export async function obtenerAtrasosDeAlumno(req, res) {
 }
 export async function obtenerRutAlumno(req, res) {
   try {
-    const rutAlumno = req.session.rutAlumno;
+    const rutAlumno = req.session.rut;
     if (!rutAlumno) {
       return res.status(401).json({ message: 'No autenticado' });
     }

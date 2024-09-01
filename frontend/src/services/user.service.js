@@ -26,3 +26,12 @@ export async function eliminarPersonaAPI(rut) {
         throw error.response?.data || error.message;
     }
 }
+
+export async function editarPersonaAPI(rut, datos) {
+    try {
+        const response = await axios.patch(`/usuario/modificar/${rut}`, datos);
+        return response;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+}

@@ -1,13 +1,13 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/configDB.js';
-import Usuario from '../models/user.model.js';
 import Atraso from '../models/atrasos.model.js';
+import Usuario from '../models/user.model.js';
 
 const Justificativo = sequelize.define('Justificativo', {
     justificativo_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true, // Define `id` como la clave primaria
+        primaryKey: true,
     },
     rutpersona: {
         type: DataTypes.STRING(12),
@@ -25,11 +25,11 @@ const Justificativo = sequelize.define('Justificativo', {
     archivo_url: {
         type: DataTypes.STRING
     },
-    idatraso:{
+    atraso_id: {
         type: DataTypes.INTEGER,
         references: {
             model: Atraso,
-            key: 'idatraso'
+            key: 'atraso_id'
         }
     }
 }, {
@@ -40,7 +40,7 @@ const Justificativo = sequelize.define('Justificativo', {
 Justificativo.belongsTo(Usuario, { foreignKey: 'rutpersona' });
 Usuario.hasMany(Justificativo, { foreignKey: 'rutpersona' });
 
-Justificativo.belongsTo(Atraso, { foreignKey: 'idatraso' }); // Agregar relación con Atraso
-Atraso.hasMany(Justificativo, { foreignKey: 'idatraso' });
+Justificativo.belongsTo(Atraso, { foreignKey: 'atraso_id' });
+Atraso.hasOne(Justificativo, { foreignKey: 'atraso_id' });
 
 export default Justificativo;
