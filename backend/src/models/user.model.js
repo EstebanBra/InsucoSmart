@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/configDB.js';
+import Curso from '../models/curso.model.js';
 
 const Usuario = sequelize.define('Usuario', {
     rut: {
@@ -16,9 +17,13 @@ const Usuario = sequelize.define('Usuario', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    curso: {
-        type: DataTypes.STRING,
-        allowNull: true
+    curso_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,  //lo deja opcion para por ejemplo Administrador que no tiene curso
+        references: {
+          model: Curso,
+          key: 'curso_id',
+        },
     },
     contrasena: {
         type: DataTypes.STRING,
@@ -26,7 +31,9 @@ const Usuario = sequelize.define('Usuario', {
     }
 }, {
     tableName: "PERSONA",
-    timestamps: false // Evita tener: createdAt y updatedAt
+    timestamps: false, 
 });
+    Usuario.belongsTo(Curso, { foreignKey: 'curso_id' });
+    Curso.hasMany(Usuario, { foreignKey: 'curso_id' });
 
 export default Usuario;

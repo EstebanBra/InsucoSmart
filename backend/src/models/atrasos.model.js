@@ -8,16 +8,12 @@ const Atraso = sequelize.define('Atraso', {
         autoIncrement: true,
         primaryKey: true,
     },
-    rutpersona: {
-      type: DataTypes.STRING,
-      references: {
-        model: Usuario,
-        key: 'rut'
-      },
-      onDelete: 'CASCADE'
+    fecha: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
     },
-    atraso: {
-      type: DataTypes.INTEGER,
+    hora: {
+      type: DataTypes.TIME,
       allowNull: false,
     },
     fecha: {
@@ -27,12 +23,20 @@ const Atraso = sequelize.define('Atraso', {
     hora: {
       type: DataTypes.TIME,
       allowNull: false,
-    }
+    },
+    rutpersona: {
+      type: DataTypes.STRING,
+      references: {
+        model: Usuario,
+        key: 'rut'
+      },
+    },
 }, {
-    tableName: 'atraso',
-    timestamps: false
+    tableName: 'ATRASO',
+    timestamps: false,
 });
 
   Atraso.belongsTo(Usuario, { foreignKey: 'rutpersona' });
   Usuario.hasMany(Atraso, { foreignKey: 'rutpersona' });
+  
 export default Atraso;
