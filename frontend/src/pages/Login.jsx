@@ -6,6 +6,7 @@ import NavBar from '../components/NavBar.jsx';
 import Form from '../components/Form.jsx';
 
 export default function Login() {
+    
     const navigate = useNavigate();
     const [error, setError] = useState(null);
     const [showNotification, setShowNotification] = useState(false);
