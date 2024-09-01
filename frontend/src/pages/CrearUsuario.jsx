@@ -4,6 +4,7 @@ import { crearUsuarioAPI } from '../services/user.service.js';
 import { Successful } from '../helpers/Notifications.jsx';
 import Form from '../components/Form.jsx';
 import NavBar from '../components/NavBar.jsx';
+import formatoRUN from '../helpers/FormatoRUN.jsx';
 
 //! Validar si el rol seleccionado aparezcan o desaparezcan campos
 //* El campo de los cursos debe ser seleccionable
@@ -37,9 +38,19 @@ export default function CrearUsuario() {
 
     function handleChange(event) {
         const { name, value } = event.target;
+        let formattedValue = value;
+
+        if (name === 'rut') {
+            formattedValue = formatoRUN(value);
+
+            // Limita la longitud total a "XX.XXX.XXX-X" (12 caracteres)
+            if (formattedValue.length > 12) {
+                formattedValue = formattedValue.slice(0, 12);
+            }
+        }
         setFormData(prevData => ({
             ...prevData,
-            [name]: value
+            [name]: formattedValue
         }));
     }
 
