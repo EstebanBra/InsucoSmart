@@ -7,34 +7,37 @@ const Justificativo = sequelize.define('Justificativo', {
     justificativo_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true,
-    },
-    rutpersona: {
-        type: DataTypes.STRING(12),
-        references: {
-            model: Usuario,
-            key: 'rut'
-        }
+        primaryKey: true
     },
     motivo: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
     estado: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     },
     archivo_url: {
         type: DataTypes.STRING
     },
+    rutpersona: {
+        type: DataTypes.STRING,
+        references: {
+          model: Usuario,
+          key: 'rut'
+        },
+    },
     atraso_id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
             model: Atraso,
             key: 'atraso_id'
         }
     }
 }, {
-    tableName: 'justificativo',
-    timestamps: false
+    tableName: 'JUSTIFICATIVO',
+    timestamps: false,
 });
 
 Justificativo.belongsTo(Usuario, { foreignKey: 'rutpersona' });

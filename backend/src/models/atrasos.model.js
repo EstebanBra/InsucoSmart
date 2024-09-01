@@ -1,23 +1,16 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/configDB.js';
 import Usuario from '../models/user.model.js';
-
+import Imparte from '../models/imparte.model.js';
+import Materia from '../models/materia.model.js';
 const Atraso = sequelize.define('Atraso', {
     atraso_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
-    rutpersona: {
-      type: DataTypes.STRING,
-      references: {
-        model: Usuario,
-        key: 'rut'
-      },
-      onDelete: 'CASCADE'
-    },
-    atraso: {
-      type: DataTypes.INTEGER,
+    estado: { //0 inactivo, 1 activo
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
     fecha: {
@@ -27,12 +20,22 @@ const Atraso = sequelize.define('Atraso', {
     hora: {
       type: DataTypes.TIME,
       allowNull: false,
-    }
+    },
+    rutpersona: {
+      type: DataTypes.STRING,
+      references: {
+        model: Usuario,
+        key: 'rut',
+      },
+    },
 }, {
-    tableName: 'atraso',
-    timestamps: false
+    tableName: 'ATRASO',
+    timestamps: false,
+    Imparte,
+    Materia
 });
 
   Atraso.belongsTo(Usuario, { foreignKey: 'rutpersona' });
   Usuario.hasMany(Atraso, { foreignKey: 'rutpersona' });
+  
 export default Atraso;
