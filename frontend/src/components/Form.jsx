@@ -33,8 +33,16 @@ export default function Form({ title, fields, buttonText, onSubmit, footerConten
                                 onChange={field.onChange}
                             >
                                 <option value="" disabled>Selecciona una opción</option>
-                                {field.options.map((option, idx) => (
-                                    <option key={idx} value={option}>{option}</option>
+                                {field.options.map((group, idx) => (
+                                    group.options ? (
+                                        <optgroup key={idx} label={group.label}>
+                                            {group.options.map((option, optIdx) => (
+                                                <option key={optIdx} value={option}>{option}</option>
+                                            ))}
+                                        </optgroup>
+                                    ) : (
+                                        <option key={idx} value={group}>{group}</option>
+                                    )
                                 ))}
                             </select>
                         ) : (
