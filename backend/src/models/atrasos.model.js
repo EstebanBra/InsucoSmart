@@ -21,14 +21,6 @@ const Atraso = sequelize.define('Atraso', {
       type: DataTypes.TIME,
       allowNull: false,
     },
-    fecha: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
-    },
-    hora: {
-      type: DataTypes.TIME,
-      allowNull: false,
-    },
     rutpersona: {
       type: DataTypes.STRING,
       references: {
