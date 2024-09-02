@@ -6,11 +6,8 @@ import listaAlumnosRoutes from './listaAlumnos.routes.js';
 
 const router = Router();
 
-// Define la ruta para los atrasos /api/atraso
 router.use('/atraso', atrasosRoutes);
-// Define la ruta para obtener lista alumnos con atrasos /api/atraso
 router.use('/atraso', listaAlumnosRoutes);
-
 router.get('/');
 router.use('/auth', authRoutes);
 router.use('/usuario', userRoutes);

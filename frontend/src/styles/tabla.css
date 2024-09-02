@@ -1,67 +1,60 @@
-
 /* Estilos generales */
 
 .body-listaAlumnos {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 20px;
-}
-
-.title {
+    margin: 0 auto;
+  }
+  
+  .title {
     margin-top: 70px; 
     margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 24px;
-    color: #333;
-}
-
-/* Estilos del contenedor */
-.body-listaAlumnosd div {
-    width: 80%;
-    border: 0px solid #626161;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilos de la tabla */
-.body-listaAlumnos table {
-    width: 100%;
-    border-spacing: 10px 20px;
-}
-
-
-.body-listaAlumnos th,
-.body-listaAlumnos td {
-    padding: 18px;
+    text-align: center;
+  }
+  
+  
+  /* Estilos de la tabla */
+  .body-listaAlumnos table {
+    width: 60%;
+    border-spacing: 20px 15px;
+    margin: 0 auto;
+  }
+  
+  .body-listaAlumnos th,
+  .body-listaAlumnos td {
+    padding: 15px;
     text-align: left;
-}
-
-.container-listaAlumnos th {
-    color: #333;
-    padding-bottom: 15px; /* Espacio extra debajo del texto */
-}
-.body-listaAlumnos tbody tr {
-    border-radius: 20px;
+  }
+  
+  .body-listaAlumnos tbody tr {
+    border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-}
-.td-tabla {
-    display:flex;
-    justify-content: space-evenly;
-}
-
-.tabla-button img {
-    width: 20px;
-    height: auto;
-}
-
-
-
-
-
-
+    border: 1px solid transparent;
+    overflow: hidden; /* Agrega esta línea */
+  }
+  .dt-length select {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 60px; /* Ajusta el ancho del select */
+    font-size: 14px;
+    margin: 0 10px;
+  }
+  .dt-length label {
+    font-size: 0; /* Oculta el texto original */
+  }
+  
+  .dt-length label:before {
+    content: "Cantidad por pagina"; /* Agrega el nuevo texto */
+    font-size: 14px; /* Establece el tamaño de fuente */
+  }
+  .dt-search label {
+    font-size: 0; /* Oculta el texto original */
+  }
+  
+  .dt-search label:before {
+    content: "Buscador "; /* Agrega el nuevo texto */
+    font-size: 14px; /* Establece el tamaño de fuente */
+  }

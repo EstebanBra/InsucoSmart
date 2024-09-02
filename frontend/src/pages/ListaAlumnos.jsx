@@ -37,6 +37,7 @@ function ListarAlumnos() {
       <div className="title">
         <h1>Atrasos de los Alumnos</h1>
       </div>
+    
       {alumnos.length > 0 ? (
         <DataTable
           data={alumnos}
