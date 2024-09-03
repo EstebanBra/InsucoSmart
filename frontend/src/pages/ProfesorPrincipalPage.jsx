@@ -1,31 +1,26 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/profesorPage.css';  // Asegúrate de crear y estilizar este archivo CSS' ../styles/tabla.css'
 import NavBar from '../components/NavBar.jsx';
+import '../styles/tabla2.css'; // Incluye este archivo si necesitas estilos adicionales
+import actividadImagen from '../assets/feria.png'; // Ruta al archivo .jpeg
 
-function ProfesorPage() {
-    const navigate = useNavigate();
 
-    const handleListarAlumnos = () => {
-        navigate('/lista'); // Ruta que lleva a la lista de alumnos
-    };
-
-    const handleOtraAccion = () => {
-        navigate('/listaAlerta'); // Otra ruta o acción
-    };
-
+function profesorPage() {
     return (
-        <div className="profesorPage">
-        <NavBar />
-            <div className="bienvenido-profesor">
-                <h1> Bienvenido, Profesor </h1>
+        <div className="alumnoPage">
+            <NavBar />
+            <div className="bienvenido-alumno">
+                <h1>Bienvenido, Profesor</h1>
             </div>
-            <div className="button-container">
-                <button className="styled-button" onClick={handleListarAlumnos}>Listar Alumnos</button>
-                <button className="styled-button" onClick={handleOtraAccion}>Listar Aumnos con Alerta</button>
+            <div className="info-section">
+                <h2>Recordatorio</h2>
+                <img src={actividadImagen} alt="Evento 1" className="info-image" />
+                <p className="info-text">
+                No olviden que la Feria de Ciencias se llevará a cabo el viernes 22 de septiembre a partir de las 9:00 hrs. Los profesores de ciencias deben preparar sus stands y coordinar con los alumnos participantes.
+                </p>
+                <hr className="divider" />
             </div>
         </div>
     );
 }
 
-export default ProfesorPage;
+export default profesorPage;

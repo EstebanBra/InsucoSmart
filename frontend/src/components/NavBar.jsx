@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logoutAPI } from '../services/auth.service';
 import chevron from '../assets/chevron.svg';
@@ -10,6 +10,11 @@ export default function NavBar() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [mostrarTareasAdministrar, setMostrarTareasAdministrar] = useState(false);
     const [showSettingsTasks, setShowSettingsTasks] = useState(false);
+    const [showTareasProfesor, setTareasProfesor] = useState(false);
+
+    // Refs for sidebar and navbar
+    const sidebarRef = useRef(null);
+    const navbarRef = useRef(null);
 
     useEffect(() => {
         const storedUser = JSON.parse(sessionStorage.getItem('usuario'));
@@ -18,9 +23,34 @@ export default function NavBar() {
         }
     }, []);
 
+    useEffect(() => {
+        // Handle click outside of sidebar and navbar
+        const handleClickOutside = (event) => {
+            if (
+                sidebarRef.current &&
+                !sidebarRef.current.contains(event.target) &&
+                navbarRef.current &&
+                !navbarRef.current.contains(event.target)
+            ) {
+                setSidebarOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     const letra = user?.nombre?.charAt(0).toUpperCase() || '';
     const rol = user?.rol || '';
-
+    const handleInicioClick = () => {
+        if (rol === "Alumno") {
+            navigate('/alumnoPage'); // Redirige a la página específica para alumnos
+        } else {
+            navigate(rol === "Profesor" ? '/profesorPage' : '/');
+        }
+    };
     const login = useCallback(() => {
         navigate('/login');
     }, [navigate]);
@@ -47,9 +77,13 @@ export default function NavBar() {
         setMostrarTareasAdministrar(false); // Ocultar la otra lista si está visible
     };
 
+    const toggleTareasProfesor = () => {
+        setMostrarTareasProfesor(!showSettingsTasks);
+        setMostrarTareasAdministrar(false); // Ocultar la otra lista si está visible
+    };
     return (
         <>
-            <nav className="navbar">
+            <nav className="navbar" ref={navbarRef}>
                 {user && (
                     <button className="navbar-sidebar-toggle" onClick={toggleSidebar}>
                         ☰
@@ -58,7 +92,7 @@ export default function NavBar() {
                 <h1 className="navbar-logo">{letra}</h1>
                 <div className="dropdowns">
                     <div className="dropdown">
-                        <button className="navbar-button" onClick={() => { navigate(rol === "Profesor" ? '/profesorPage' : '/') }}>
+                        <button className="navbar-button" onClick={handleInicioClick}>
                             Inicio
                         </button>
                     </div>
@@ -76,7 +110,7 @@ export default function NavBar() {
             </nav>
 
             {user && (
-                <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+                <div className={`sidebar ${sidebarOpen ? 'open' : ''}`} ref={sidebarRef}>
                     {rol === "Administrador" && (
                         <>
                             <button onClick={toggleProfileTasks}>Administrar</button>
@@ -97,6 +131,17 @@ export default function NavBar() {
                                     <button onClick={() => navigate('/listaAtrasos')}>Ver tus atrasos</button>
                                     <button onClick={() => navigate('/ingresarJustificativo')}>Ingresar Justificativo</button>
                                     {/* Agrega más tareas aquí */}
+                                </div>
+                            )}
+                        </>
+                    )}
+                    {rol === "Profesor" && (
+                        <>
+                            <button onClick={toggleTareasProfesor}>Acciones</button>
+                            {showSettingsTasks && (
+                                <div className="tasks-list">
+                                    <button onClick={() => navigate('/listaAtrasos')}>Ver atrasos</button>
+                                    <button onClick={() => navigate('/ingresarJustificativo')}>Verificar Justificativos</button>
                                 </div>
                             )}
                         </>

@@ -1,0 +1,53 @@
+.alumnoPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.bienvenido-alumno {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.bienvenido-alumno h1 {
+    margin: 0;
+}
+
+.info-section {
+    max-width: 800px;
+    width: 100%;
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.info-section h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.info-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.info-text {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #555;
+}
+.divider {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 20px auto;
+    width: 80%;
+}

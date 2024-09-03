@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Form from '../components/Form.jsx';
 import { uploadJustificativo } from '../services/justificativo.service.js';
+import NavBar from '../components/NavBar.jsx';
 
 // Función para normalizar la fecha al formato YYYY-MM-DD
 function normalizeDate(dateString) {
@@ -98,12 +99,17 @@ export default function JustificativoForm() {
     ];
 
     return (
-        <Form
-            title="Subir Justificativo"
-            fields={fields}
-            buttonText="Enviar"
-            onSubmit={handleSubmit}
-            backgroundColor="#fdfdfd"
-        />
+        <div>
+            <NavBar />
+            <div style={{ padding: '20px' }}>
+                <Form
+                    title="Subir Justificativo"
+                    fields={fields}
+                    buttonText="Enviar"
+                    onSubmit={handleSubmit}
+                    backgroundColor="#fdfdfd"
+                />
+            </div>
+        </div>
     );
 }
