@@ -4,6 +4,7 @@ import { loginAPI } from '../services/auth.service';
 import { Successful } from '../helpers/Notifications.jsx';
 import NavBar from '../components/NavBar.jsx';
 import Form from '../components/Form.jsx';
+import formatoRUN from '../helpers/FormatoRUN.jsx';
 
 export default function Login() {
     
@@ -12,28 +13,6 @@ export default function Login() {
     const [showNotification, setShowNotification] = useState(false);
     const [formData, setFormData] = useState({ rut: '', contrasena: '' });
     const [notificationMessage, setNotificationMessage] = useState('');
-
-    // Función para formatear el RUN
-    function formatoRut(texto) {
-        // Elimina cualquier carácter que no sea un dígito o 'k/K'
-        let rutAux = texto.replace(/[^0-9kK]/g, '').toUpperCase();
-
-        if (rutAux.length <= 1) return rutAux; // No formatear si el RUN es demasiado corto
-
-        // Asegurarse de que solo haya un dígito verificador al final
-        let cuerpo = rutAux.slice(0, -1); // Parte numérica del RUN
-        let dv = rutAux.slice(-1); // Dígito verificador
-
-        // Limitar el cuerpo del RUN a un máximo de 8 caracteres
-        if (cuerpo.length > 8) {
-            cuerpo = cuerpo.slice(0, 8);
-        }
-
-        // Formatear el cuerpo del RUN con puntos
-        let rutFormatted = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
-        return `${rutFormatted}-${dv}`;
-    }
 
     async function loginSubmit(data) {
         try {
@@ -62,7 +41,7 @@ export default function Login() {
         let formattedValue = value;
 
         if (name === 'rut') {
-            formattedValue = formatoRut(value);
+            formattedValue = formatoRUN(value);
 
             // Limita la longitud total a "XX.XXX.XXX-X" (12 caracteres)
             if (formattedValue.length > 12) {
