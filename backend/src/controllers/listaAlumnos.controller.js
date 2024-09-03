@@ -89,7 +89,7 @@ export async function obtenerAtrasosDeAlumno(req, res) {
     // Buscar los atrasos del alumno
     const atrasos = await Atraso.findAll({
       where: { rutpersona: rutAlumno },
-      attributes: ['atraso', 'fecha','hora']
+      attributes: ['fecha','hora']
     });
 
     // Responder con la lista de atrasos
