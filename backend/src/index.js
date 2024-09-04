@@ -5,6 +5,7 @@ import cors from 'cors';
 import { connectDB } from './config/configDB.js';
 import indexRoutes from './routes/index.routes.js';
 import session from 'express-session';
+import crearAdministrador from './config/initSetup.js';
 
 async function setupServer() {
     try {
@@ -24,7 +25,7 @@ async function setupServer() {
 
         app.use('/api', indexRoutes);
 
-        app.listen(3000, () => {
+        app.listen(PORT, () => {
             console.log(`=> Servidor corriendo en http://${HOST}:${PORT}`);
         });
     } catch (error) {
@@ -36,6 +37,7 @@ async function setupAPI() {
     try {
         await connectDB();
         await setupServer();
+        await crearAdministrador();
     } catch (error) {
         console.error('Error en index.js -> setupAPI():', error);
     }
