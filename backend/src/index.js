@@ -25,7 +25,7 @@ async function setupServer() {
 
         app.use('/api', indexRoutes);
 
-        app.listen(3000, () => {
+        app.listen(PORT, () => {
             console.log(`=> Servidor corriendo en http://${HOST}:${PORT}`);
         });
     } catch (error) {
