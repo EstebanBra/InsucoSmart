@@ -10,9 +10,8 @@ import { Op } from 'sequelize';
 
 export async function obtenerAlumnosConAtrasos(req, res) {
   try {
-
     const resultados = await Atraso.findAll({
-      attributes: ['estado', 'hora', 'fecha', 'atraso_id'],
+      attributes: ['hora', 'fecha', 'atraso_id'],
       where: {
         estado: true  // Filtra por estado igual a true
       },
@@ -29,7 +28,6 @@ export async function obtenerAlumnosConAtrasos(req, res) {
         },
       ],
     });
-    //console.log(resultados);
 
     const resultadosImparte = [];
 
@@ -37,13 +35,9 @@ export async function obtenerAlumnosConAtrasos(req, res) {
         // Asegúrate de que estás accediendo correctamente a los datos anidados
       const usuario = resultado?.dataValues?.Usuario?.dataValues;
       const curso = usuario?.Curso?.dataValues;
-      //console.log(usuario);
-      //console.log(curso);
 
       const fecha = resultado.fecha;
       const horaAtraso =  resultado.hora;
-      console.log(fecha);
-      console.log(horaAtraso);
 
       //Cambiar la fecha a Dia de la semana
       const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -105,18 +99,16 @@ export async function obtenerAlumnosConAtrasos(req, res) {
         resultadosImparte.push({
           fechaAtraso: resultado.fecha,
           horaAtraso: resultado.hora,
-          estado: resultado.estado,
+          numeroCurso: resultado.Usuario.Curso.numero_curso,
           nombreMateria: null,
           rutUsuario: resultado.Usuario.rut,
           nombreUsuario: resultado.Usuario.nombre,
-          numeroCurso: resultado.Usuario.Curso.numero_curso,
           justificado: Justificado
 
         });
       }
     }
     res.json(resultadosImparte);
-
   } catch (error) {
     console.error('Error al encontrar alumnos:', error);
     res.status(500).json({ message: 'Error alumnos' });
