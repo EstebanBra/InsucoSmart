@@ -69,11 +69,28 @@ export async function listarAcademicos(req, res) {
     try {
         const academicos = await Usuario.findAll({
             where: { rol: ['Profesor', 'Inspector'] },
-            attributes: ['rol', 'rut', 'nombre', 'curso']
+            attributes: ['rol', 'rut', 'nombre', 'curso_id']
         });
+        // Iterar sobre cada académico para buscar su nombre de curso
+        const academicosConCurso = await Promise.all(
+            academicos.map(async (academico) => {
+                // Consultar el nombre del curso según el curso_id del académico
+                const curso = await Curso.findOne({
+                    where: { curso_id: academico.curso_id },
+                    attributes: ['numero_curso']
+                });
+                return {
+                    rol: academico.rol,
+                    rut: academico.rut,
+                    nombre: academico.nombre,
+                    curso: curso ? curso.numero_curso : 'Sin curso asignado' // Manejo si no hay curso encontrado
+                };
+            })
+        );
+
         res.status(200).json({
             message: 'Académicos encontrados:',
-            academicos: academicos
+            academicos: academicosConCurso
         });
     } catch (error) {
         console.error('Error en user.controller.js -> listarAcademicos():', error);
