@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { aprobarJustificativo, rechazarJustificativo, getDatosJustificativo } from '../services/justificativo.service.js';
 import '../styles/tabla.css'
 import NavBar from '../components/NavBar.jsx';

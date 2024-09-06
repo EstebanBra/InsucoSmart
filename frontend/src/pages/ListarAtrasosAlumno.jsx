@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from '../services/root.service.js';
 import { getAtrasosAlumno } from '../services/listaAlumnos.service.js';
 import Tabla from '../components/Tabla.jsx';
