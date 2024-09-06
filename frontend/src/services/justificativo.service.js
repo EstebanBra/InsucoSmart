@@ -13,3 +13,27 @@ export const uploadJustificativo = async (formData) => {
         throw error.response ? error.response.data : new Error('Error desconocido');
     }
 };
+export async function getDatosJustificativo(atraso_id) {
+    try {
+      const response = await axios.get(`/atraso/justificativo/${atraso_id}`);
+      return response;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error en listar a los atrasos del alumno.');
+    }
+  }
+  export async function aprobarJustificativo(atraso_id) {
+    try {
+      const response = await axios.patch(`/atraso/aceptar/${atraso_id}`);
+      return response;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error al aprobar el justificativo.');
+    }
+  }
+  export async function rechazarJustificativo(atraso_id) {
+    try {
+      const response = await axios.patch(`/atraso/rechazar/${atraso_id}`);
+      return response;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error al aprobar el justificativo.');
+    }
+  }

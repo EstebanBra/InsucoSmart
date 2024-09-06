@@ -9,6 +9,7 @@ import ListarAcademicos from './pages/ListarAcademicos.jsx';
 import AtrasosAlumno from './pages/ListarAtrasosAlumno.jsx';
 import AlumnoPage from './pages/AlumnoPage.jsx';
 import JustificativoPage from './pages/IngresarJustificativo.jsx';
+import AprobarJustificativo from './pages/AprobarJustificativo.jsx';
 
 export default function AppRouter() {
   return (
@@ -23,8 +24,7 @@ export default function AppRouter() {
       <Route path='/listaAtrasos' element={<AtrasosAlumno />}/>
       <Route path='/alumnoPage' element={<AlumnoPage />}/>
       <Route path='/ingresarJustificativo' element={<JustificativoPage />}/>
-
-
+      <Route path='/aprobar' element={<AprobarJustificativo />}/>
     </Routes>
   );
 }

@@ -25,7 +25,7 @@
   .body-listaAlumnos th,
   .body-listaAlumnos td {
     padding: 15px;
-    text-align: left;
+    text-align:center ;
   }
   
   .body-listaAlumnos tbody tr {
@@ -57,4 +57,44 @@
   .dt-search label:before {
     content: "Buscador "; /* Agrega el nuevo texto */
     font-size: 14px; /* Establece el tamaño de fuente */
+  }
+
+  .botones-accion {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .botones-accion button {
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: none;
+  }
+
+  .botones-accion button.aceptar {
+    background-color: #4CAF50; /* Verde */
+    color: #fff;
+  }
+  
+  .botones-accion button.rechazar {
+    background-color: #FF3737; /* Rojo */
+    color: #fff;
+  }
+  .aceptar:hover {
+    background-color: #ccc;
+    cursor: pointer;
+  }
+  
+  .aceptar:active {
+    background-color: #aaa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  .rechazar:hover {
+    background-color: #ccc;
+    cursor: pointer;
+  }
+  
+  .rechazar:active {
+    background-color: #aaa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
