@@ -2,6 +2,8 @@ import Justificativo from '../models/justificativo.model.js';
 import Atraso from '../models/atrasos.model.js';
 import { drive } from '../config/googleService.js'; // Asegúrate de que esta importación sea correcta
 import { Readable } from 'stream';
+import Usuario from '../models/user.model.js';
+import Curso from '../models/curso.model.js';
 
 export async function generarJustificativo(req, res) {
     try {
@@ -73,5 +75,97 @@ export async function generarJustificativo(req, res) {
     } catch (error) {
         console.error('Error subiendo justificativo:', error);
         res.status(500).json({ message: 'Error al subir justificativo' });
+    }
+}
+
+export async function aprobarJustificativo(req, res) {
+    const { atraso_id} = req.params;
+
+    try {
+
+        const justificativo = await Justificativo.findOne({
+            where: {atraso_id: atraso_id}
+        });
+
+        if(!justificativo){
+            return res.status(404).json({message: 'Justificativo no encontrado'});
+        }
+        justificativo.estado = 'Aprobado';
+        await justificativo.save();
+
+        const atraso = await Atraso.findByPk(atraso_id);
+        atraso.estado = false;
+        await atraso.save();
+
+            res.status(200).json({ message: 'Atraso justificado correctamente' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al justificar el atraso', error });
+    }
+}
+
+export async function rechazarJustificativo(req, res) {
+    const { atraso_id} = req.params;
+
+    try {
+
+        const justificativo = await Justificativo.findOne({
+            where: {atraso_id: atraso_id}
+        });
+
+        if(!justificativo){
+            return res.status(404).json({message: 'Justificativo no encontrado'});
+        }
+        justificativo.estado = 'Rechazado';
+        await justificativo.save();
+            res.status(200).json({ message: 'Atraso justificado correctamente' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al justificar el atraso', error });
+    }
+}
+
+export async function datosJustificativo(req, res){
+    const { atraso_id } = req.params;
+
+    try {
+      const justificativo = await Justificativo.findOne({
+        where: { atraso_id: atraso_id },
+        include: [
+            {
+                model: Atraso,
+                include : [
+                    { 
+                        model: Usuario,
+                        include: [
+                            {
+                                model: Curso
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+      });
+  
+      if (!justificativo) {
+        return res.status(404).json({ message: 'Justificativo no encontrado' });
+      }
+  
+      const datosJustificativo = {
+        motivo: justificativo.motivo,
+        archivo_url: justificativo.archivo_url,
+        atraso: {
+        fecha: justificativo.Atraso.fecha,
+            hora: justificativo.Atraso.hora,
+            rutpersona: justificativo.Atraso.rutpersona,
+            alumno: {
+                nombre: justificativo.Atraso.Usuario.nombre,
+                curso: justificativo.Atraso.Usuario.Curso.numero_curso
+            }
+        }
+      };
+      
+      res.status(200).json(datosJustificativo);
+    } catch (error) {
+      res.status(500).json({ message: 'Error al obtener datos del justificativo', error });
     }
 }

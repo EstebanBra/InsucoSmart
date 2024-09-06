@@ -1,52 +1,35 @@
-
 /* Estilos generales */
 
 .body-listaAlumnos {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 20px;
-}
-
-.title {
+    margin: 0 auto;
+  }
+  
+  .title {
     margin-top: 70px; 
     margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 24px;
-    color: #333;
-}
-
-/* Estilos del contenedor */
-.body-listaAlumnosd div {
-    width: 80%;
-    border: 0px solid #626161;
+    text-align: center;
+  }
+  
+  
+  /* Estilos de la tabla */
+  .body-listaAlumnos table {
+    width: 60%;
+    border-spacing: 20px 15px;
+    margin: 0 auto;
+  }
+  
+  .body-listaAlumnos th,
+  .body-listaAlumnos td {
+    padding: 15px;
+    text-align:center ;
+  }
+  
+  .body-listaAlumnos tbody tr {
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilos de la tabla */
-.body-listaAlumnos table {
-    width: 100%;
-    border-spacing: 10px 20px;
-}
-
-
-.body-listaAlumnos th,
-.body-listaAlumnos td {
-    padding: 18px;
-    text-align: left;
-}
-
-.container-listaAlumnos th {
-    color: #333;
-    padding-bottom: 15px; /* Espacio extra debajo del texto */
-}
-.body-listaAlumnos tbody tr {
-    border-radius: 20px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     padding: 10px;
 }
@@ -87,4 +70,44 @@ h1 {
 
 
 
+  .botones-accion {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .botones-accion button {
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: none;
+  }
 
+  .botones-accion button.aceptar {
+    background-color: #4CAF50; /* Verde */
+    color: #fff;
+  }
+  
+  .botones-accion button.rechazar {
+    background-color: #FF3737; /* Rojo */
+    color: #fff;
+  }
+  .aceptar:hover {
+    background-color: #ccc;
+    cursor: pointer;
+  }
+  
+  .aceptar:active {
+    background-color: #aaa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  .rechazar:hover {
+    background-color: #ccc;
+    cursor: pointer;
+  }
+  
+  .rechazar:active {
+    background-color: #aaa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  

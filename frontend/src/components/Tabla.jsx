@@ -25,4 +25,5 @@ const Tabla = ({ datos, columnas, titulos }) => {
   );
 };
 
+
 export default Tabla;
