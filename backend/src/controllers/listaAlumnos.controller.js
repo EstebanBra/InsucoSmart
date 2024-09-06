@@ -42,7 +42,6 @@ export async function obtenerAlumnosConAtrasos(req, res) {
       //Cambiar la fecha a Dia de la semana
       const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
       const diaSemana = diasSemana[(new Date(fecha).getDay() + 1) % 7];
-      console.log(diaSemana);
 
       const imparte = await Imparte.findOne({
         where: {
