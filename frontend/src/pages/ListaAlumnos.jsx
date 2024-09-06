@@ -25,10 +25,14 @@ function ListarAlumnos() {
   }, []);
 
   const columnas = [
-    { title: 'Nombre', data: 'nombre' },
-    { title: 'RUN', data: 'rut' },
-    { title: 'Curso', data: 'curso' },
-    { title: 'Total atrasos', data: 'totalatrasos' },
+    { title: 'Fecha Atraso ', data: 'fechaAtraso' },
+    { title: 'Hora Atraso', data: 'horaAtraso' },
+    { title: 'Curso', data: 'numeroCurso' },
+    { title: 'Materia', data: 'nombreMateria' },
+    { title: 'RUT', data: 'rutUsuario' },
+    { title: 'Nombre', data: 'nombreUsuario' },
+    { title: 'Justificado', data: 'justificado' },
+
   ];
 
   return (
