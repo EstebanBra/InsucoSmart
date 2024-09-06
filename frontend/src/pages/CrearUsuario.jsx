@@ -4,11 +4,10 @@ import { crearUsuarioAPI } from '../services/user.service.js';
 import { Successful } from '../helpers/Notifications.jsx';
 import Form from '../components/Form.jsx';
 import NavBar from '../components/NavBar.jsx';
+import formatoRUN from '../helpers/FormatoRUN.jsx';
 
-//! Validar si el rol seleccionado aparezcan o desaparezcan campos
-//* El campo de los cursos debe ser seleccionable
-// Implementar un botón para ver la contraseña
-//? Opcional: Darle formato al rut
+//! Validar si el rol seleccionado permita que aparezcan o desaparezcan campos
+//? Opcional: Implementar un botón para ver la contraseña
 
 export default function CrearUsuario() {
     const navigate = useNavigate();
@@ -37,16 +36,28 @@ export default function CrearUsuario() {
 
     function handleChange(event) {
         const { name, value } = event.target;
+        let formattedValue = value;
+
+        if (name === 'rut') {
+            formattedValue = formatoRUN(value);
+
+            // Limita la longitud total a "XX.XXX.XXX-X" (12 caracteres)
+            if (formattedValue.length > 12) {
+                formattedValue = formattedValue.slice(0, 12);
+            }
+        }
         setFormData(prevData => ({
             ...prevData,
-            [name]: value
+            [name]: formattedValue
         }));
     }
 
     const isFormValid = (
         formData.rol.trim() !== '' &&
-        formData.rut.trim() !== '' &&
-        formData.nombre.trim() !== ''
+        formData.rut.length >= 11 &&
+        formData.nombre.trim() !== '' &&
+        formData.curso.trim() !== '' &&
+        formData.contrasena.trim() !== ''
     );
 
     return (
@@ -59,7 +70,7 @@ export default function CrearUsuario() {
                     {
                         label: "Rol",
                         name: "rol",
-                        options: ['Inspector','Profesor', 'Alumno'],
+                        options: ['Alumno', 'Profesor', 'Inspector'],
                         value: formData.rol,
                         onChange: handleChange
                     },
@@ -80,7 +91,13 @@ export default function CrearUsuario() {
                     {
                         label: "Curso",
                         name: "curso",
-                        type: "text",
+                        options: [
+                            'No aplica',
+                            { label: "- Primero medio", options: ['1°A', '1°B', '1°C'] },
+                            { label: "- Segundo medio", options: ['2°A', '2°B', '2°C'] },
+                            { label: "- Tercero medio", options: ['3°A', '3°B', '3°C'] },
+                            { label: "- Cuarto medio", options: ['4°A', '4°B', '4°C'] },
+                        ],
                         value: formData.curso,
                         onChange: handleChange
                     },

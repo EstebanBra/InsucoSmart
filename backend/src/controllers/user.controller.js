@@ -1,11 +1,12 @@
 import bcrypt from 'bcryptjs';
 import Usuario from '../models/user.model.js';
 import Atraso from '../models/atrasos.model.js';
+import Curso from '../models/curso.model.js';
 
 export async function crearUsuario(req, res) {
     try {
         const { rut, rol, nombre, curso, contrasena } = req.body;
-
+        console.log(curso);
         // Maneja posibles errores de campos requeridos
         if (!rut) return res.status(400).json({ message: 'El parámetro "rut" es requerido.' });
         if (!rol) return res.status(400).json({ message: 'El parámetro "rol" es requerido.' });
@@ -15,8 +16,22 @@ export async function crearUsuario(req, res) {
         const rutEncontrado = await Usuario.findOne({ where: { rut } });
         if (rutEncontrado) return res.status(400).json({ message: 'El rut ya se encuentra registrado.' });
 
-        // Asigna los datos
-        const datosUsuario = { rut, rol, nombre, curso };
+        let datosUsuario = { rut, rol, nombre };
+        let curso_id;
+
+        if(curso === 'No aplica'){
+            datosUsuario.curso_id = null 
+        } else {
+            //consulta para obtener el curso_id del Numero de curso ingresado 
+            curso_id = await Curso.findOne({
+                where: {
+                numero_curso:  curso 
+                },
+                attributes: ['curso_id'] // Selecciona solo el campo 'curso_id'
+            });    
+            datosUsuario.curso_id = curso_id.dataValues.curso_id;
+        }
+        
 
         // Encripta la contraseña
         if (contrasena) datosUsuario.contrasena = await bcrypt.hash(contrasena, 10);
@@ -54,11 +69,28 @@ export async function listarAcademicos(req, res) {
     try {
         const academicos = await Usuario.findAll({
             where: { rol: ['Profesor', 'Inspector'] },
-            attributes: ['rol', 'rut', 'nombre', 'curso']
+            attributes: ['rol', 'rut', 'nombre', 'curso_id']
         });
+        // Iterar sobre cada académico para buscar su nombre de curso
+        const academicosConCurso = await Promise.all(
+            academicos.map(async (academico) => {
+                // Consultar el nombre del curso según el curso_id del académico
+                const curso = await Curso.findOne({
+                    where: { curso_id: academico.curso_id },
+                    attributes: ['numero_curso']
+                });
+                return {
+                    rol: academico.rol,
+                    rut: academico.rut,
+                    nombre: academico.nombre,
+                    curso: curso ? curso.numero_curso : 'Sin curso asignado' // Manejo si no hay curso encontrado
+                };
+            })
+        );
+
         res.status(200).json({
             message: 'Académicos encontrados:',
-            academicos: academicos
+            academicos: academicosConCurso
         });
     } catch (error) {
         console.error('Error en user.controller.js -> listarAcademicos():', error);

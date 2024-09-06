@@ -21,13 +21,13 @@ export async function registrarAtraso(req, res) {
     // Creamos un nuevo atraso para el estudiante
     const nuevoAtraso = await Atraso.create({
       rutpersona: persona.rut,
-      estado:1,
+      estado: 1,
       fecha: fecha,
       hora: hora,
     });
     
     // Contar el número de registros en la tabla Atraso donde el rutpersona coincide
-    const totalAtrasos = await Atraso.count({ where: { rutpersona: persona.rut } });
+    const totalAtrasos = await Atraso.count({ where: { rutpersona: persona.rut, estado: true } });
     return res.json({
       nombre: persona.nombre,
       rut,
