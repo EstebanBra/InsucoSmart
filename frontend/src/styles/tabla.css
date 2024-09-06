@@ -60,7 +60,30 @@ h1 {
     height: auto;
 }
 
+/* Agrega iconos personalizados para las columnas ordenables */
+.dt-orderable-asc:after {
+    content: "⇧"; /* Flecha hacia arriba para orden ascendente */
+    float: right;
+    font-size: 0.8em;
+    color: #555;
+    margin-left: 10px;
+}
 
+.dt-orderable-desc:after {
+    content: "⇩"; /* Flecha hacia abajo para orden descendente */
+    float: right;
+    font-size: 0.8em;
+    color: #555;
+    margin-left: 10px;
+}
+
+.dt-orderable:after {
+    content: "⇅"; /* Icono de doble flecha para indicar que es ordenable */
+    float: right;
+    font-size: 0.8em;
+    color: #555;
+    margin-left: 10px;
+}
 
 
 

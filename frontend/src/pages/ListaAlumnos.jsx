@@ -32,7 +32,17 @@ function ListarAlumnos() {
     { title: 'RUT', data: 'rutUsuario' },
     { title: 'Nombre', data: 'nombreUsuario' },
     { title: 'Justificado', data: 'justificado' },
-
+    {
+    title: 'Justificado',
+    data: 'justificado',
+    render: function (data, type, row) {
+      if (data === 'porRevisar') {
+        return `<a href="/?id=${row.rutUsuario}">porRevisar</a>`;
+      } else {
+        return data;
+      }
+    }
+  }
   ];
 
   return (
