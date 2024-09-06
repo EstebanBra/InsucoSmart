@@ -3,13 +3,13 @@ import { aprobarJustificativo, rechazarJustificativo, getDatosJustificativo } fr
 import '../styles/tabla.css'
 import NavBar from '../components/NavBar.jsx';
 import Form from '../components/Form.jsx'; // Importa el componente Form
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function AprobarJustificativo() {
+  const { atraso_id } = useParams();  // Obtenemos el atraso_id de la URL
   const navigate = useNavigate();
   const [datosJustificativo, setDatosJustificativo] = useState(null); // Esperamos un solo objeto, no una lista
   const [error, setError] = useState(null);
-  const [atraso_id, setAtrasoId] = useState('');
 
   useEffect(() => {
     const obtenerDatos = async () => {
@@ -68,7 +68,7 @@ function AprobarJustificativo() {
     {
       label: 'Justificativo',
       name: 'archivo_url',
-      value: datosJustificativo ? datosJustificativo.archivo_url : '',
+      value: datosJustificativo && datosJustificativo.archivo_url ? datosJustificativo.archivo_url : 'No hay Enlace',
       type: 'url',
       disabled: true, // Deshabilitamos el campo
     },
@@ -94,12 +94,6 @@ function AprobarJustificativo() {
         <h1>Aprobar Justificativo</h1>
       </div>
       <div className="container-atrasosAlumno">
-        <input 
-          type="text" 
-          value={atraso_id} 
-          onChange={(event) => setAtrasoId(event.target.value)} 
-          placeholder="Ingrese el ID del atraso" 
-        />
         {datosJustificativo ? (
           <Form 
             title="Aprobar Justificativo"

@@ -24,7 +24,7 @@ export default function AppRouter() {
       <Route path='/listaAtrasos' element={<AtrasosAlumno />}/>
       <Route path='/alumnoPage' element={<AlumnoPage />}/>
       <Route path='/ingresarJustificativo' element={<JustificativoPage />}/>
-      <Route path='/aprobar' element={<AprobarJustificativo />}/>
+      <Route path='/aprobar/:atraso_id' element={<AprobarJustificativo />}/>
     </Routes>
   );
 }

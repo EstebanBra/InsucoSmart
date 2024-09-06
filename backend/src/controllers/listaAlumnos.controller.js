@@ -79,9 +79,9 @@ export async function obtenerAlumnosConAtrasos(req, res) {
   try {
     const resultados = await Atraso.findAll({
       attributes: ['hora', 'fecha', 'atraso_id'],
-      where: {
+     /* where: {
         estado: true  // Filtra por estado igual a true
-      },
+      },*/
       include: [
         {
           model: Usuario,
@@ -158,8 +158,8 @@ export async function obtenerAlumnosConAtrasos(req, res) {
           nombreMateria: materia.nombre_materia,
           rutUsuario: resultado.Usuario.rut,
           nombreUsuario: resultado.Usuario.nombre,
-          justificado: Justificado
-
+          justificado: Justificado,
+          atraso_id: resultado.atraso_id
         });
       } else {
         resultadosImparte.push({

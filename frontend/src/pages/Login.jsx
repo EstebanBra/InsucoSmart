@@ -27,6 +27,9 @@ export default function Login() {
                 if (response.rol === 'Profesor') {
                     navigate('/ProfesorPage');
                 }
+                if (response.rol === 'Inspector') {
+                    navigate('/ProfesorPage');
+                }
                 if (response.rol === 'Alumno') {
                     navigate('/AlumnoPage');
                 }

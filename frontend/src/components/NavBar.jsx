@@ -9,8 +9,8 @@ export default function NavBar() {
     const [user, setUser] = useState(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [mostrarTareasAdministrar, setMostrarTareasAdministrar] = useState(false);
-    const [showSettingsTasks, setShowSettingsTasks] = useState(false);
-    const [showTareasProfesor, setTareasProfesor] = useState(false);
+    const [showSettingsTasksAlumno, setShowSettingsTasksAlumno] = useState(false);
+    const [showSettingsTasksProfesor, setShowSettingsTasksProfesor] = useState(false);
 
     // Refs for sidebar and navbar
     const sidebarRef = useRef(null);
@@ -44,6 +44,7 @@ export default function NavBar() {
 
     const letra = user?.nombre?.charAt(0).toUpperCase() || '';
     const rol = user?.rol || '';
+
     const handleInicioClick = () => {
         if (rol === "Alumno") {
             navigate('/alumnoPage'); // Redirige a la página específica para alumnos
@@ -51,6 +52,7 @@ export default function NavBar() {
             navigate(rol === "Profesor" ? '/profesorPage' : '/');
         }
     };
+
     const login = useCallback(() => {
         navigate('/login');
     }, [navigate]);
@@ -64,23 +66,28 @@ export default function NavBar() {
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
         setMostrarTareasAdministrar(false);
-        setShowSettingsTasks(false);
+        setShowSettingsTasksAlumno(false);
+        setShowSettingsTasksProfesor(false);
     };
 
     const toggleProfileTasks = () => {
         setMostrarTareasAdministrar(!mostrarTareasAdministrar);
-        setShowSettingsTasks(false); // Ocultar la otra lista si está visible
+        setShowSettingsTasksAlumno(false);
+        setShowSettingsTasksProfesor(false);
     };
 
-    const toggleSettingsTasks = () => {
-        setShowSettingsTasks(!showSettingsTasks);
-        setMostrarTareasAdministrar(false); // Ocultar la otra lista si está visible
+    const toggleSettingsTasksAlumno = () => {
+        setShowSettingsTasksAlumno(!showSettingsTasksAlumno);
+        setMostrarTareasAdministrar(false);
+        setShowSettingsTasksProfesor(false);
     };
 
-    const toggleTareasProfesor = () => {
-        setMostrarTareasProfesor(!showSettingsTasks);
-        setMostrarTareasAdministrar(false); // Ocultar la otra lista si está visible
+    const toggleSettingsTasksProfesor = () => {
+        setShowSettingsTasksProfesor(!showSettingsTasksProfesor);
+        setMostrarTareasAdministrar(false);
+        setShowSettingsTasksAlumno(false);
     };
+
     return (
         <>
             <nav className="navbar" ref={navbarRef}>
@@ -125,23 +132,32 @@ export default function NavBar() {
 
                     {rol === "Alumno" && (
                         <>
-                            <button onClick={toggleSettingsTasks}>Acciones</button>
-                            {showSettingsTasks && (
+                            <button onClick={toggleSettingsTasksAlumno}>Acciones</button>
+                            {showSettingsTasksAlumno && (
                                 <div className="tasks-list">
                                     <button onClick={() => navigate('/listaAtrasos')}>Ver tus atrasos</button>
                                     <button onClick={() => navigate('/ingresarJustificativo')}>Ingresar Justificativo</button>
-                                    {/* Agrega más tareas aquí */}
                                 </div>
                             )}
                         </>
                     )}
+
                     {rol === "Profesor" && (
                         <>
-                            <button onClick={toggleTareasProfesor}>Acciones</button>
-                            {showSettingsTasks && (
+                            <button onClick={toggleSettingsTasksProfesor}>Acciones</button>
+                            {showSettingsTasksProfesor && (
                                 <div className="tasks-list">
-                                    <button onClick={() => navigate('/listaAtrasos')}>Ver atrasos</button>
-                                    <button onClick={() => navigate('/ingresarJustificativo')}>Verificar Justificativos</button>
+                                    <button onClick={() => navigate('/lista')}>Ver atrasos</button>
+                                </div>
+                            )}
+                        </>
+                    )}
+                    {rol === "Inspector" && (
+                        <>
+                            <button onClick={toggleSettingsTasksProfesor}>Acciones</button>
+                            {showSettingsTasksProfesor && (
+                                <div className="tasks-list">
+                                    <button onClick={() => navigate('/lista')}>Ver atrasos</button>
                                 </div>
                             )}
                         </>

@@ -31,13 +31,12 @@ function ListarAlumnos() {
     { title: 'Materia', data: 'nombreMateria' },
     { title: 'RUT', data: 'rutUsuario' },
     { title: 'Nombre', data: 'nombreUsuario' },
-    { title: 'Justificado', data: 'justificado' },
     {
     title: 'Justificado',
     data: 'justificado',
     render: function (data, type, row) {
       if (data === 'porRevisar') {
-        return `<a href="/?id=${row.rutUsuario}">porRevisar</a>`;
+        return `<a href="http://localhost:5173/aprobar/${row.atraso_id}">porRevisar</a>`;
       } else {
         return data;
       }

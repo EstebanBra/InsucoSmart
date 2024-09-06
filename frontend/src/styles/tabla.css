@@ -109,5 +109,34 @@
     background-color: #aaa;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
-
   
+  .body-listaAlumnos tbody tr {
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid transparent;
+    overflow: hidden; /* Agrega esta línea */
+  }
+    .dt-length select {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 60px; /* Ajusta el ancho del select */
+    font-size: 14px;
+    margin: 0 10px;
+    }
+    .dt-length label {
+    font-size: 0; /* Oculta el texto original */
+    }
+
+    .dt-length label:before {
+    content: "Cantidad por pagina"; /* Agrega el nuevo texto */
+    font-size: 14px; /* Establece el tamaño de fuente */
+    }
+    .dt-search label {
+    font-size: 0; /* Oculta el texto original */
+    }
+
+    .dt-search label:before {
+    content: "Buscador "; /* Agrega el nuevo texto */
+    font-size: 14px; /* Establece el tamaño de fuente */
+    }
