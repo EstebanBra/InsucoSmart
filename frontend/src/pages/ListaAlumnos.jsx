@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ListaAlumnos } from '../services/listaAlumnos.service.js';
-import '../styles/tabla.css';
+import '../styles/listar.css';
 import NavBar from '../components/NavBar.jsx';
 import DataTable from 'datatables.net-react';  // Importa el componente DataTables para React
 import DT from 'datatables.net-dt';            // Importa los estilos y funcionalidades de DataTables
@@ -45,7 +45,7 @@ function ListarAlumnos() {
   ];
 
   return (
-    <div className="body-listaAlumnos">
+    <div className="listar-academicos">
       <NavBar />
       <div className="title">
         <h1>Atrasos de los Alumnos</h1>

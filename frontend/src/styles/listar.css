@@ -1,0 +1,133 @@
+
+.contenedor-listar-academicos {
+    margin: 73px auto;
+    max-width: 1200px;
+}
+.contenedor-listar-academicos h1 {
+    font-size: 2em;
+    text-align: center;
+}
+
+.listar-academicos {
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.listar-academicos .dt-layout-row {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.listar-academicos .dt-layout-row .dt-length {
+    display:flex;
+}
+.listar-academicos .dt-layout-row .dt-length select {
+    height: 20px;
+    width: 40px;
+    margin: auto 0;
+}
+
+.listar-academicos .dt-search {
+    display:flex;
+    align-items: center;
+}
+
+.listar-academicos .dt-search .dt-input {
+    margin-left: 5px;
+    font-size: 16px;
+    border: 0.5px solid black;
+    outline:none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.listar-academicos .dt-layout-table {
+    display: block;
+    margin: 20px 0;
+}
+
+.listar-academicos .dataTable thead th {
+    border: 1px solid black;
+}
+.listar-academicos .dataTable tbody tr {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.listar-academicos .dataTable tbody td {
+    padding: 10px 0px;
+    border-bottom: 0.5px solid black;
+}
+
+.listar-academicos .dt-layout-row .dt-paging-button {
+    width: 30px;
+    height: auto;
+    margin: 0 1px;
+}
+
+/* Reglas para el icono de ordenación ascendente */
+table.dataTable thead > tr > th.dt-orderable-asc span.dt-column-order:before,
+table.dataTable thead > tr > th.dt-ordering-asc span.dt-column-order:before,
+table.dataTable thead > tr > td.dt-orderable-asc span.dt-column-order:before,
+table.dataTable thead > tr > td.dt-ordering-asc span.dt-column-order:before {
+  position: absolute;
+  display: block;
+  bottom: 50%;
+  content: "▲";
+  opacity: 0.125;
+  line-height: 9px;
+  font-size: 8px;
+}
+
+/* Reglas para el icono de ordenación descendente */
+table.dataTable thead > tr > th.dt-orderable-desc span.dt-column-order:after,
+table.dataTable thead > tr > th.dt-ordering-desc span.dt-column-order:after,
+table.dataTable thead > tr > td.dt-orderable-desc span.dt-column-order:after,
+table.dataTable thead > tr > td.dt-ordering-desc span.dt-column-order:after {
+  position: absolute;
+  display: block;
+  top: 50%;
+  content: "▼";
+  opacity: 0.125;
+  line-height: 9px;
+  font-size: 8px;
+}
+
+/* Reglas generales para las celdas de encabezado y datos ordenables */
+table.dataTable thead > tr > th.dt-orderable-asc,
+table.dataTable thead > tr > th.dt-orderable-desc,
+table.dataTable thead > tr > th.dt-ordering-asc,
+table.dataTable thead > tr > th.dt-ordering-desc,
+table.dataTable thead > tr > td.dt-orderable-asc,
+table.dataTable thead > tr > td.dt-orderable-desc,
+table.dataTable thead > tr > td.dt-ordering-asc,
+table.dataTable thead > tr > td.dt-ordering-desc {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Reglas para los contenedores de iconos de ordenación */
+table.dataTable thead > tr > th.dt-orderable-asc span.dt-column-order,
+table.dataTable thead > tr > th.dt-orderable-desc span.dt-column-order,
+table.dataTable thead > tr > th.dt-ordering-asc span.dt-column-order,
+table.dataTable thead > tr > th.dt-ordering-desc span.dt-column-order,
+table.dataTable thead > tr > td.dt-orderable-asc span.dt-column-order,
+table.dataTable thead > tr > td.dt-orderable-desc span.dt-column-order,
+table.dataTable thead > tr > td.dt-ordering-asc span.dt-column-order,
+table.dataTable thead > tr > td.dt-ordering-desc span.dt-column-order {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+}
+
+/* Reglas específicas para los iconos de ordenación activa */
+table.dataTable thead > tr > th.dt-ordering-asc span.dt-column-order:before,
+table.dataTable thead > tr > th.dt-ordering-desc span.dt-column-order:after,
+table.dataTable thead > tr > td.dt-ordering-asc span.dt-column-order:before,
+table.dataTable thead > tr > td.dt-ordering-desc span.dt-column-order:after {
+  opacity: 0.6;
+}

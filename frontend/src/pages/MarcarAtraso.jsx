@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Ticket from '../components/Ticket';
 import logoLiceo from '../assets/logo-Blanco-Negro.png';
 import { obtenerFechaYHoraActual } from '../helpers/FechaHoraActual.jsx';
-import marcarAtraso from '../services/marcarAtraso.service.js'
+import marcarAtraso from '../services/marcarAtraso.service.js';
 import NavBar from '../components/NavBar.jsx';
 import '../styles/atraso.css';
+import formatoRUN from '../helpers/FormatoRUN.jsx';
 
 function MarcarAtraso() {
-    const [rut, setRut] = useState('');
+    const [formData, setFormData] = useState({ rut: '' });
     const [ticketVisible, setTicketVisible] = useState(false);
     const [ticketData, setTicketData] = useState({});
     const [fechaYHora, setFechaYHora] = useState('');
-    //useEffect para rendederizar Fecha y Hora Actual en Pantalla
+
+    // useEffect para renderizar Fecha y Hora Actual en Pantalla
     useEffect(() => {
         const actualizarFechaYHora = () => {
             setFechaYHora(obtenerFechaYHoraActual());
@@ -26,14 +28,32 @@ function MarcarAtraso() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // llamadoBackend
-            const response = await marcarAtraso(rut);
+            const response = await marcarAtraso(formData.rut);
             setTicketData(response.data);  // Ajusta según el formato del JSON recibido
             setTicketVisible(true);
         } catch (error) {
             console.error("Error al registrar el atraso:", error);
         }
     };
+
+    function handleChange(event) {
+        const { name, value } = event.target;
+        let formattedValue = value;
+
+        if (name === 'rut') {
+            formattedValue = formatoRUN(value);
+
+            // Limita la longitud total a "XX.XXX.XXX-X" (12 caracteres)
+            if (formattedValue.length > 12) {
+                formattedValue = formattedValue.slice(0, 12);
+            }
+        }
+
+        setFormData(prevData => ({
+            ...prevData,
+            [name]: formattedValue
+        }));
+    }
 
     return (
         <div className="atraso-container">
@@ -47,8 +67,10 @@ function MarcarAtraso() {
                             className="rut-input"
                             type="text" 
                             id="rut" 
-                            value={rut} 
-                            onChange={(e) => setRut(e.target.value)} 
+                            name="rut" // Añadir el atributo "name"
+                            value={formData.rut} 
+                            onChange={handleChange} 
+                            maxLength={12} // Limitar a 12 caracteres
                             required 
                         />
                     </div>

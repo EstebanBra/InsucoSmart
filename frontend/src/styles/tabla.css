@@ -43,33 +43,6 @@
     height: auto;
 }
 
-/* Agrega iconos personalizados para las columnas ordenables */
-.dt-orderable-asc:after {
-    content: "⇧"; /* Flecha hacia arriba para orden ascendente */
-    float: right;
-    font-size: 0.8em;
-    color: #555;
-    margin-left: 10px;
-}
-
-.dt-orderable-desc:after {
-    content: "⇩"; /* Flecha hacia abajo para orden descendente */
-    float: right;
-    font-size: 0.8em;
-    color: #555;
-    margin-left: 10px;
-}
-
-.dt-orderable:after {
-    content: "⇅"; /* Icono de doble flecha para indicar que es ordenable */
-    float: right;
-    font-size: 0.8em;
-    color: #555;
-    margin-left: 10px;
-}
-
-
-
   .botones-accion {
     display: flex;
     justify-content: center;
@@ -110,33 +83,3 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
   
-  .body-listaAlumnos tbody tr {
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    border: 1px solid transparent;
-    overflow: hidden; /* Agrega esta línea */
-  }
-    .dt-length select {
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 60px; /* Ajusta el ancho del select */
-    font-size: 14px;
-    margin: 0 10px;
-    }
-    .dt-length label {
-    font-size: 0; /* Oculta el texto original */
-    }
-
-    .dt-length label:before {
-    content: "Cantidad por pagina"; /* Agrega el nuevo texto */
-    font-size: 14px; /* Establece el tamaño de fuente */
-    }
-    .dt-search label {
-    font-size: 0; /* Oculta el texto original */
-    }
-
-    .dt-search label:before {
-    content: "Buscador "; /* Agrega el nuevo texto */
-    font-size: 14px; /* Establece el tamaño de fuente */
-    }
